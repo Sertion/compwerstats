@@ -1,0 +1,75 @@
+.buttonFront {
+    -webkit-appearance: none;
+    border-width: 0;
+    display: block;
+    cursor: pointer;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    width: 320px;
+    padding: 340px 0 0;
+    box-shadow: 0 3px 2px rgba(0, 10, 20, 0.5);
+    transform: translate(0, 5px);
+    transition: all 200ms;
+    box-sizing: border-box;
+}
+.buttonFront:hover,
+.buttonFront:focus {
+    transform: translate(0, -5px);
+}
+.buttonFront--stats {
+    background-image: url('../../../../static/img/mainpanel-stats.png')
+}
+.buttonFront--competitive {
+    background-image: url('../../../../static/img/mainpanel-competitive.png')
+}
+.buttonFront--settings {
+    background-image: url('../../../../static/img/mainpanel-settings.png')
+}
+.buttonFront__label {
+    text-align: center;
+    line-height: 1;
+    font-size: 45px;
+    font-family: BigNoodle;
+    color: var(--color-foreground-label);
+    text-transform: uppercase;
+    background: #fff;
+    height: 45px;
+    padding: 40px 0 0;
+}
+.buttonFront__description {
+    text-align: center;
+    line-height: 1.2;
+    font-size: 14px;
+    color: var(--color-foreground-label);
+    text-transform: uppercase;
+    background: #fff;
+    height: 35px;
+    padding: 10px 20px 40px;
+}
+
+@media (max-width: 1080px), (max-height: 600px) {
+    .buttonFront {
+        display: block;
+        background-size: auto 100%;
+        padding: 10px 10px 10px 70px;
+        margin-bottom: 5px;
+        width: 100%;
+        background-color: #fff;
+        transform: translate(0, 1px);
+    }
+    .buttonFront:hover,
+    .buttonFront:focus {
+        transform: translate(0, -1px);
+    }
+    .buttonFront__label {
+        padding: 0;
+        text-align: left;
+        height: auto;
+        font-size: 32px;
+    }
+    .buttonFront__description {
+        padding: 0;
+        text-align: left;
+        height: auto;
+    }
+}

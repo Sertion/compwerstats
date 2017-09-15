@@ -1,0 +1,11 @@
+<div class="characterList" ref="characters">
+    <div class="characterType" v-if="list" v-for="item in list" >
+        <img class="characterType__icon" :src="item.type.getIcon()">
+        <div class="characterType__label">{{ item.type.getName() }}</div>
+        <div class="characterType__characters">
+            <button class="character" v-for="character in item.characters" :style="character.background" @click="clickHandler" :title="character.character.getName()" :data-id="character.character.id">
+                <div class="character__label">{{ character.character.getName() }}</div>
+            </button>
+        </div>
+    </div>
+</div>

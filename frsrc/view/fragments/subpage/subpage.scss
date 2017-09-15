@@ -1,0 +1,24 @@
+.subpage {
+    display: grid;
+    grid-template-rows: 36px auto;
+    grid-template-columns: 60px auto;
+    grid-template-areas:
+        "back head head"
+        "main main main";
+    height: calc(100vh - 41px);
+}
+.subpage__back {
+    display: flow-root;
+    grid-area: back;
+}
+.subpage__head {
+    display: flex;
+    grid-area: head;
+    justify-self: end;
+}
+.subpage__body {
+    overflow-y: auto;
+    grid-area: main;
+    max-height: 100%;
+    padding: 5px;
+}

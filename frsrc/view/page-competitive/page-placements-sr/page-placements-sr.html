@@ -1,0 +1,13 @@
+<div class="pageCompetitive">
+    <subpage back="front">
+        <season-select :selected="seasonId" @input="updateSeasonId" slot="head"></season-select>
+        <loading-spinner v-if="loading"></loading-spinner>
+        <div class="seasonSr" v-else>
+            <h2 class="placementSrHeader">Your initial season skill rating</h2>
+            <form action="\" @submit.prevent="save">
+                <input type="number" max="5000" min="0" v-model="season.placementRating" class="placementSrRating">
+                <button-base type="save" >Save Rating</button-base>
+            </form>
+        </div>
+    </subpage>
+</div>

@@ -1,0 +1,18 @@
+:root {
+    --color-background-chrome: #1c74bb;
+    --color-foreground-chrome: #ffffff;
+    --color-background-button: #1c74bb;
+    --color-foreground-button: #ffffff;
+
+    --color-foreground-label: #263451;
+
+    --color-type-map: hsl(10, 62%, 49%);
+    --color-type-maptype: hsl(25, 62%, 49%);
+    --color-type-rank: hsl(49, 62%, 49%);
+    --color-type-commentsuggestion: hsl(84, 62%, 49%);
+    --color-type-season: hsl(151, 62%, 49%);
+    --color-type-character: hsl(180, 62%, 49%);
+    --color-type-charactertype: hsl(195, 62%, 49%);
+    --color-type-placement: hsl(220, 62%, 49%);
+    --color-type-match: hsl(271, 62%, 49%);
+}

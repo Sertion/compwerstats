@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "outDir": "./frapp/",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "rootDir": "./frsrc/",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "allowJs": false,
+        "lib": [
+            "es5",
+            "es6",
+            "es7",
+            "es2015",
+            "es2017",
+            "dom"
+        ]
+    },
+    "include": [
+        "frsrc/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

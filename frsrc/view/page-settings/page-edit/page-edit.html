@@ -1,0 +1,9 @@
+<div class="pageSettings">
+    <subpage back="settings-list" :backProps="backProperties">
+        <loading-spinner v-if="loading"></loading-spinner>
+        <form v-else class="formHolder">
+            <vue-form-generator :schema="schema" :model="model"></vue-form-generator>
+            <a v-if="id !== 'create' &&  model" @click="remove(model)" class="removeLink">remove {{ model.getName() }}</a>
+        </form>
+    </subpage>
+</div>

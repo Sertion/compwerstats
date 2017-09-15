@@ -1,0 +1,113 @@
+.addMatchHeader {
+    font-size: 20px;
+    font-weight: normal;
+    font-size: 25px;
+    margin: 10px 20px 0;
+    font-family: BigNoodle;
+    color: #fff;
+    text-shadow:
+        0 0 4px rgb(10, 20, 30),
+        1px 1px 0 rgb(10, 20, 30),
+        -1px 1px 0 rgb(10, 20, 30),
+        1px -1px 0 rgb(10, 20, 30),
+        -1px -1px 0 rgb(10, 20, 30);
+}
+
+.addMatchRating {
+    font-size: 50px;
+    max-width: 230px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    -moz-appearance: none;
+    display: block;
+    margin: 10px auto;
+    box-sizing: border-box;
+    font-family: Futura;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 
+        0 0 3px rgba(10, 20, 30, 0.4),
+        inset 0 20px 40px -10px rgba(99, 75, 236, 0.2);
+}
+
+.addMatchComment {
+    display: block;
+    margin: 0 auto;
+    padding: 5px;
+    font-family: Futura;
+    font-size: 20px;
+    line-height: 1.46;
+    resize: vertical;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    box-shadow:
+        0 2px 3px rgba(10, 20, 30, 0.4),
+        inset 0 20px 40px -10px rgba(99, 75, 236, 0.3);
+    height: 150px;
+    box-sizing: border-box;
+    max-width: 950px;
+    width: 100%;
+}
+
+.addMatchTeamRating {
+    display: flex;
+    justify-content: space-around;
+}
+.addMatchTeamRatingField {
+    font-size: 40px;
+    max-width: 230px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    -moz-appearance: none;
+    display: block;
+    margin: 10px auto;
+    box-sizing: border-box;
+    font-family: Futura;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 
+        0 0 3px rgba(10, 20, 30, 0.4),
+        inset 0 20px 40px -10px rgba(99, 75, 236, 0.2);
+}
+.addMatchTeamRatingField--red {
+    border-color: #EB9DA4;
+}
+.addMatchTeamRatingField--blue {
+    border-color: #9DBFEB;
+}
+
+.addMatchCommentSuggestions {
+    padding: 10px 5px 10px 20px;
+    box-sizing: border-box;
+    max-width: 950px;
+    width: 100%;
+    margin: 0 auto;
+}
+.addMatchCommentSuggestions__label {
+    font-size: 16px;
+    color: #fff;
+    margin: 0 0 5px;
+    text-shadow:
+        0 0 4px rgb(10, 20, 30),
+        1px 1px 0 rgb(10, 20, 30),
+        -1px 1px 0 rgb(10, 20, 30),
+        1px -1px 0 rgb(10, 20, 30),
+        -1px -1px 0 rgb(10, 20, 30);
+}
+.addMatchCommentSuggestions__text {
+    text-decoration: none;
+    color: #555;
+    padding: 5px;
+    float: left;
+}
+.addMatchCommentSuggestions__text:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 1400px) {
+    .addMatchHeader {
+        font-size: 50px;
+    }
+}

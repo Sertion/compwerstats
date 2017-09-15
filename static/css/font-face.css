@@ -1,0 +1,14 @@
+@font-face {
+    font-family: BigNoodle;
+    src: url('../font/bignoodletoo.ttf');
+    font-weight: 400;
+}
+@font-face {
+    font-family: kOverwatch;
+    src: url('../font/koverwatch.ttf');
+    font-weight: 400;
+}
+@font-face {
+    font-family: Futura;
+    src: url('../font/futura.ttf');
+}

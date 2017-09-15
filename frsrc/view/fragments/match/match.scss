@@ -1,0 +1,115 @@
+.matchItem {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    max-width: 650px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 3px;
+    margin: 0 0 5px 5px;
+}
+
+.matchItem__map {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 110%;
+    height: auto;
+    filter: blur(3px) brightness(0.75);
+    transform: translate(-50%, -50%);
+}
+.matchItem__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.matchItem__mapName {
+    font-size: 50px;
+    padding: 5px 0 0 10px;
+    color: #fff;
+    text-shadow: 0 2px 3px rgba(10, 20, 30, 0.5);
+    font-family: BigNoodle;
+    line-height: 1;
+}
+.matchItem__time {
+    padding: 2px 0 0 20px;
+    color: #fff;
+    text-shadow: 0 2px 3px rgba(10, 20, 30, 0.5);
+    font-size: 14px;
+}
+
+.matchItem__rating {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.matchItem__ratingIcon {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: -5px;
+    height: auto;
+    width: auto;
+    max-width: 60px;
+    max-height: 70px
+}
+.matchItem__ratingLabel {
+    position: relative;
+    padding: 0 0 0 60px;
+    font-size: 50px;
+    font-family: kOverwatch;
+    color: #fff;
+    text-shadow:
+        1px 1px 0 rgb(10, 20, 30),
+        -1px 1px 0 rgb(10, 20, 30),
+        1px -1px 0 rgb(10, 20, 30),
+        -1px -1px 0 rgb(10, 20, 30);
+}
+.matchItem__ratingLabel:before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 7px;
+    bottom: 12px;
+    left: 67px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    filter: blur(7px);
+}
+.matchItem__ratingLabelText {
+    position: relative;
+    z-index: 1;
+}
+.matchItem--win .matchItem__ratingLabelText {
+    color: #88b60b;
+}
+.matchItem--draw .matchItem__ratingLabelText {
+    color: #cbc728;
+}
+.matchItem--loss .matchItem__ratingLabelText {
+    color: #9d2b49;
+}
+
+.matchItem__characters {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    left: 5px;
+    display: flex;
+    justify-content: flex-end;
+    height: 60px;
+}
+
+.matchItem__character {
+    border: 1px solid #fff;
+    width: 54px;
+    background-position: 50% 50%, 0 0;
+    background-size: cover, 0 0;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+    box-shadow: 0 2px 3px rgba(10, 20, 30, 0.4);
+    margin: 0 0 0 5px;
+    background-color: rgba(0, 0, 0, 0.75);
+}

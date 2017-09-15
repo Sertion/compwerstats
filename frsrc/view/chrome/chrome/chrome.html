@@ -1,0 +1,21 @@
+<div class="chrome">
+    <div class="chrome__head">
+        <div class="chrome__title">Compwerstats</div>
+        <div class="chrome__grow"></div>
+        <div class="chrome__rating" v-if="currentRating > 0 && currentRank">
+            <img :src="currentRank.iconPath" :title="currentRank.title" class="chrome__ratingIcon">
+            <div class="chrome__ratingLabel">{{ currentRating }}</div>
+        </div>
+        <div class="chrome__quickAction">
+            <button-base v-if="loaded" type="quick" :label="quickAddLabel" @clicked="quickAdd($event)"></button-base>
+        </div>
+        <div class="chrome__windowActions">
+            <button-chrome title="Minimize" action="minimize" path="M1.5,14.5H14.5z"></button-chrome>
+            <button-chrome title="Maximize" action="maximize" path="M1.5,1.5H14.5V14.5H1.5z"></button-chrome>
+            <button-chrome title="Close" action="close" path="M1.5,1.5L14.5,14.5M14.5,1.5L1.5,14.5z"></button-chrome>
+        </div>
+    </div>
+    <div class="chrome__body">
+        <router-view></router-view>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+.headSelect {
+    font-size: 12px;
+    border-radius: 3px;
+    display: flex;
+    margin: 7px 7px 7px 15px;
+    line-height: 1;
+    color: #fff;
+    overflow: hidden;
+    background: rgba(63, 65, 130, 0.8);
+}
+
+.headSelectItem {
+    display: block;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    min-width: 25px;
+    text-align: center;
+    cursor: pointer;
+    text-shadow: 0 0 1px rgba(195, 196, 227, 0.53);
+    transition: text-shadow 200ms;
+}
+.headSelectItem:hover {
+    text-shadow: 0 1px 1px rgba(195, 196, 227, 0.53);
+}
+.headSelectItem.is-selected {
+    background: rgba(63, 65, 130, 0.8);
+}

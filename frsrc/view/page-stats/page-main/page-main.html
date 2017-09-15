@@ -1,0 +1,84 @@
+<subpage back="front">
+    <season-select :selected="seasonId" @input="updateSeasonId" slot="head"></season-select>
+    <loading-spinner v-if="loading"></loading-spinner>
+    <div class="coolStats" v-else>
+        <table class="statsTable">
+            <thead>
+                <tr>
+                    <th class="statsHead">Character</th>
+                    <th class="statsHead statsHead--percentage">Played %</th>
+                    <th class="statsHead statsHead--number">Played</th>
+                    <th class="statsHead statsHead--number">Wins</th>
+                    <th class="statsHead statsHead--number">Losses</th>
+                    <th class="statsHead statsHead--number">Draws</th>
+                    <th class="statsHead statsHead--percentage">Win %</th>
+                    <th class="statsHead statsHead--percentage">Loss %</th>
+                    <th class="statsHead statsHead--percentage">Draw %</th>
+                </tr>
+            </thead>
+            <tbody v-for="(charType, charTypeId) in stats.characterTypes" class="statsGroups">
+                <tr v-for="(cStats, charId) in charType" class="statsRow">
+                    <td class="statsField">{{ models.characters[charId].getName() }}</td>
+                    <td class="statsField statsField--percentage">{{ (cStats.win + cStats.draw + cStats.loss), stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--number">{{ cStats.win + cStats.draw + cStats.loss }}</td>
+                    <td class="statsField statsField--number">{{ cStats.win }}</td>
+                    <td class="statsField statsField--number">{{ cStats.loss }}</td>
+                    <td class="statsField statsField--number">{{ cStats.draw }}</td>
+                    <td class="statsField statsField--percentage">{{ cStats.win, cStats.win + cStats.draw + cStats.loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ cStats.loss, cStats.win + cStats.draw + cStats.loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ cStats.draw, cStats.win + cStats.draw + cStats.loss | percent }} <span class="statsPercent">%</span></td>
+                </tr>
+                <tr class="statsRow statsRow--combined">
+                    <td class="statsField">{{ models.characterTypes[charTypeId].getName() }}</td>
+                    <td class="statsField statsField--percentage">{{ (stats.characterTypesStats[charTypeId].win + stats.characterTypesStats[charTypeId].draw + stats.characterTypesStats[charTypeId].loss), stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].win + stats.characterTypesStats[charTypeId].draw + stats.characterTypesStats[charTypeId].loss }}</td>
+                    <td class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].win }}</td>
+                    <td class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].loss }}</td>
+                    <td class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].draw }}</td>
+                    <td class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].win, stats.characterTypesStats[charTypeId].win + stats.characterTypesStats[charTypeId].draw + stats.characterTypesStats[charTypeId].loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].loss, stats.characterTypesStats[charTypeId].win + stats.characterTypesStats[charTypeId].draw + stats.characterTypesStats[charTypeId].loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].draw, stats.characterTypesStats[charTypeId].win + stats.characterTypesStats[charTypeId].draw + stats.characterTypesStats[charTypeId].loss | percent }} <span class="statsPercent">%</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="statsTable">
+            <thead>
+                <tr>
+                    <th class="statsHead">Map</th>
+                    <th class="statsHead statsHead--percentage">Played %</th>
+                    <th class="statsHead statsHead--number">Played</th>
+                    <th class="statsHead statsHead--number">Wins</th>
+                    <th class="statsHead statsHead--number">Losses</th>
+                    <th class="statsHead statsHead--number">Draws</th>
+                    <th class="statsHead statsHead--percentage">Win %</th>
+                    <th class="statsHead statsHead--percentage">Loss %</th>
+                    <th class="statsHead statsHead--percentage">Draw %</th>
+                </tr>
+            </thead>
+            <tbody v-for="(mapType, mapTypeId) in stats.mapTypes" class="statsGroups">
+                <tr v-for="(mapStats, mapId) in mapType" class="statsRow">
+                    <td class="statsField">{{ models.maps[mapId].getName() }}</td>
+                    <td class="statsField statsField--percentage">{{ (mapStats.win + mapStats.draw + mapStats.loss), stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--number">{{ mapStats.win + mapStats.draw + mapStats.loss }}</td>
+                    <td class="statsField statsField--number">{{ mapStats.win }}</td>
+                    <td class="statsField statsField--number">{{ mapStats.loss }}</td>
+                    <td class="statsField statsField--number">{{ mapStats.draw }}</td>
+                    <td class="statsField statsField--percentage">{{ mapStats.win, mapStats.win + mapStats.draw + mapStats.loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ mapStats.loss, mapStats.win + mapStats.draw + mapStats.loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ mapStats.draw, mapStats.win + mapStats.draw + mapStats.loss | percent }} <span class="statsPercent">%</span></td>
+                </tr>
+                <tr class="statsRow statsRow--combined">
+                    <td class="statsField">{{ models.mapTypes[mapTypeId].getName() }}</td>
+                    <td class="statsField statsField--percentage">{{ (stats.mapTypesStats[mapTypeId].win + stats.mapTypesStats[mapTypeId].draw + stats.mapTypesStats[mapTypeId].loss), stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].win + stats.mapTypesStats[mapTypeId].draw + stats.mapTypesStats[mapTypeId].loss }}</td>
+                    <td class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].win }}</td>
+                    <td class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].loss }}</td>
+                    <td class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].draw }}</td>
+                    <td class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].win, stats.mapTypesStats[mapTypeId].win + stats.mapTypesStats[mapTypeId].draw + stats.mapTypesStats[mapTypeId].loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].loss, stats.mapTypesStats[mapTypeId].win + stats.mapTypesStats[mapTypeId].draw + stats.mapTypesStats[mapTypeId].loss | percent }} <span class="statsPercent">%</span></td>
+                    <td class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].draw, stats.mapTypesStats[mapTypeId].win + stats.mapTypesStats[mapTypeId].draw + stats.mapTypesStats[mapTypeId].loss | percent }} <span class="statsPercent">%</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</subpage>

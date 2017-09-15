@@ -1,0 +1,4 @@
+<select ref="select" class="seasonSelect" :model="selected" @change="updateValue($event.target.value)">
+    <option v-if="loading">Loading...</option>
+    <option v-for="season in seasons" :value="season.id" class="seasonSelect__item">{{ season.name }}</option>
+</select>

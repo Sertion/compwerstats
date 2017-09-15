@@ -1,0 +1,95 @@
+.listItemSettings {
+    background-color: #fff;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    color: var(--color-foreground-label);
+    position: relative;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    margin: 0 0 5px;
+    padding: 10px;
+    line-height: 1;
+    transition: all 250ms;
+    box-shadow: 0 3px 2px rgba(0, 10, 20, 0.5);
+}
+
+@mixin listItemDistinction($color) {
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        height: 60px;
+        min-width: 10px;
+        border-radius: 2px 0 0 2px;
+        background-color: var($color);
+        transition: border-radius 200ms,
+            min-width 200ms;
+    }
+}
+
+.listItemSettings--map {
+    @include listItemDistinction(--color-type-map);
+}
+.listItemSettings--maptype {
+    @include listItemDistinction(--color-type-maptype);
+}
+.listItemSettings--rank {
+    @include listItemDistinction(--color-type-rank);
+}
+.listItemSettings--commentsuggestion {
+    @include listItemDistinction(--color-type-commentsuggestion);
+}
+.listItemSettings--season {
+    @include listItemDistinction(--color-type-season);
+}
+.listItemSettings--character {
+    @include listItemDistinction(--color-type-character);
+}
+.listItemSettings--charactertype {
+    @include listItemDistinction(--color-type-charactertype);
+}
+.listItemSettings--placement {
+    @include listItemDistinction(--color-type-placement);
+}
+.listItemSettings--match {
+    @include listItemDistinction(--color-type-match);
+}
+
+.listItemSettings:hover {
+    transform: translate(0, -2px);
+}
+.listItemSettings:hover:after {
+    border-radius: 5px 0 0 5px;
+    min-width: 40px;
+    transform: translate(0, -50%);
+}
+.listItemSettings:active {
+    transform: translate(0, 2px);
+}
+.listItemSettings__iconWrapper {
+    display: inline-block;
+    vertical-align: middle;
+    height: 50px;
+    padding-right: 10px;
+}
+.listItemSettings__icon {
+    height: 100%;
+    width: auto;
+    border-radius: 3px;
+}
+.listItemSettings__name {
+    font-size: 30px;
+    font-family: BigNoodle;
+    text-transform: uppercase;
+    display: inline-block;
+    vertical-align: middle;
+}
+.listItemSettings__description {
+    font-size: 14px;
+    text-transform: uppercase;
+}

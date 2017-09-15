@@ -1,0 +1,17 @@
+<div class="pageSettings">
+    <subpage back="settings">
+        <button-base slot="head" type="head" :label="createLabel" @clicked="goToCreate"></button-base>
+        <form-head-select slot="head" v-model="order" :selected="order" title="Sort order" v-bind:items="sortOrders"></form-head-select>
+        <loading-spinner v-if="loading"></loading-spinner>
+        <list-item-settings
+            v-if="items"
+            v-for="item in items"
+            :key="item.id"
+            :type="type"
+            pageName="settings-edit"
+            :id="item.id"
+            :label="item.getName()"
+            :icon="item.getIcon ? item.getIcon() : ''">
+        </list-item-settings>
+    </subpage>
+</div>

@@ -1,0 +1,31 @@
+.seasonSelect {
+    font-size: 12px;
+    border-radius: 3px;
+    padding: 1px 10px 0;
+    width: 120px;
+    margin: 7px 7px 7px 15px;
+    line-height: 1;
+    color: #fff;
+    background-color: rgba(63, 65, 130, 0.8);
+    background-image: url('../../../../static/img/select.svg');
+    background-size: 9px;
+    background-position: calc(100% - 3px) 50%;
+    background-repeat: no-repeat;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-appearance: none;
+    transition: background-position 200ms;
+}
+.seasonSelect:hover {
+    background-position: calc(100% - 3px) calc(50% - 1px);
+}
+.seasonSelect:active {
+    background-position: calc(100% - 3px) calc(50% + 1px);
+}
+
+.seasonSelect__item {
+    text-transform: uppercase;
+}
+.seasonSelect__item:hover {
+    background: rgba(63, 65, 130, 0.8);
+}

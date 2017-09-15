@@ -1,0 +1,33 @@
+<div class="pageCompetitive">
+    <subpage back="front">
+        <button-base @clicked="skipPlacements" type="head" slot="head" v-if="type === 'placement'">Skip placements</button-base>
+        <season-select :selected="seasonId" @input="updateSeasonId" slot="head"></season-select>
+        <loading-spinner v-if="loading"></loading-spinner>
+        <form action="/" @submit.prevent="save" v-if="!loading">
+            <h2 v-if="type === 'competitive'" class="addMatchHeader">New rating</h2>
+            <div class="rating" v-if="type === 'competitive'">
+                <input type="number" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.rating" class="addMatchRating">
+            </div>
+            <h2 v-if="type === 'placement' || match.rating <= 500" class="addMatchHeader">Match result</h2>
+            <match-result-selector v-if="type === 'placement' || match.rating <= 500" v-model="match.result"></match-result-selector>
+            <h2 class="addMatchHeader">Select map</h2>
+            <map-list v-model="match.overwatchMapId"></map-list>
+            <h2 class="addMatchHeader">Select played characters</h2>
+            <character-list v-model="match.character"></character-list>
+            <h2 class="addMatchHeader">Group size</h2>
+            <group-size v-model="match.groupSize"></group-size>
+            <h2 class="addMatchHeader" v-if="type === 'competitive'">Team Skill Rating</h2>
+            <div class="addMatchTeamRating" v-if="type === 'competitive'">
+                <input type="number" title="Your team" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.blueRating" class="addMatchTeamRatingField addMatchTeamRatingField--blue">
+                <input type="number" title="Opposing team" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.redRating" class="addMatchTeamRatingField addMatchTeamRatingField--red">
+            </div>
+            <h2 class="addMatchHeader">Comment</h2>
+            <textarea class="addMatchComment" v-model="comment"></textarea>
+            <div class="addMatchCommentSuggestions" v-if="comments">
+                <div class="addMatchCommentSuggestions__label">Suggestions:</div>
+                <a v-for="comment in comments" href="#" @click.prevent="addToComment(comment.content)" class="addMatchCommentSuggestions__text">{{ comment.content }}</a>
+            </div>
+            <button-base type="save">Save</button-base>
+        </form>
+    </subpage>
+</div>

@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background: url('../img/chrome-bg.jpg') no-repeat 50% 0%;
+    background-size: 1280px 500px;
+    font-family: Futura, sans-serif;
+
+    display: grid;
+    grid-template-rows: 40px auto;
+    height: 100vh;
+}
+
+@media (min-width: 1280px) {
+    body {
+        background-size: 100% auto;
+    }
+}

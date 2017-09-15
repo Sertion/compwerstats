@@ -1,0 +1,24 @@
+<div :class="'matchItem matchItem--' + match.result">
+    <img class="matchItem__map" :src="currentMap.imagePath">
+    <div class="matchItem__content">
+        <div class="matchItem__mapName">{{ currentMap.name }}</div>
+        <div class="matchItem__time">{{ match.time | moment('YYYY-MM-DD HH:mm') }}</div>
+        <div class="matchItem__rating">
+            <img class="matchItem__ratingIcon" :src="currentRank.iconPath" :title="currentRank.title" v-if="match.rating">
+            <div class="matchItem__ratingLabel" v-if="match.rating">
+                <div class="matchItem__ratingLabelText">{{ match.rating }}</div>
+            </div>
+            <div class="matchItem__ratingLabel" v-else>
+                <div class="matchItem__ratingLabelText">{{ match.result }}</div>
+            </div>
+        </div>
+        <div class="matchItem__characters">
+            <div
+                class="matchItem__character"
+                v-for="character in usedCharacters"
+                :title="character.name"
+                :style="toBackground(character.iconPath, character.imagePath)">
+            </div>
+        </div>
+    </div>
+</div>

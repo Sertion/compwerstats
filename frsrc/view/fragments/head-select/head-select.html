@@ -1,0 +1,3 @@
+<div class="headSelect" :title="title">
+    <a class="headSelectItem" v-for="item in items" @click="updateValue($event.target, item.value)">{{ item.label }}</a>
+</div>

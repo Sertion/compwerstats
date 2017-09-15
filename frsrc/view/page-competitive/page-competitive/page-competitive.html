@@ -1,0 +1,19 @@
+<div class="pageCompetitive">
+    <subpage back="front">
+        <season-select :selected="seasonId" @input="updateSeasonId" slot="head"></season-select>
+        <loading-spinner v-if="loading"></loading-spinner>
+        <div class="matchList">
+            <div class="matchList-noMatches" v-if="matches.length === 0">
+                <div class="matchList-noMatchesText">No matches</div>
+            </div>
+            <match-item
+                v-if="!loading"
+                v-for="match in matches"
+                :key="match.id"
+                :match="match"
+                :maps="maps"
+                :characters="characters"
+                :ranks="ranks"></match-item>
+        </div>
+    </subpage>
+</div>

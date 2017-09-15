@@ -1,0 +1,33 @@
+.buttonChrome {
+    float: left;
+    background-color: rgba(63, 65, 130, 0);
+    cursor: pointer;
+    padding: 12px 7px 8px;
+    transition: background-color 200ms;
+    -webkit-app-region: no-drag;
+}
+
+.buttonChrome:last-of-type {
+    padding-right: 10px;
+}
+
+.buttonChrome:hover {
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
+    background-color: rgba(63, 65, 130, 1);
+}
+
+.buttonChrome__icon {
+    height: 16px;
+    width: 16px;
+    pointer-events: none;
+}
+
+.buttonChrome__iconPath {
+    stroke: rgba(255, 255, 255, .5);
+    fill: transparent;
+    transition: stroke 200ms;
+}
+
+.buttonChrome:hover .buttonChrome__iconPath {
+    stroke: rgba(255, 255, 255, .75);
+}

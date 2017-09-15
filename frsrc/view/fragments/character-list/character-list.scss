@@ -1,0 +1,126 @@
+.characterList {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-around;
+}
+.characterType {
+    position: relative;
+    padding: 5px;
+}
+.characterType__icon {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    height: 15px;
+    width: 15px;
+}
+.characterType__label {
+    font-size: 20px;
+    font-family: BigNoodle;
+    padding-left: 20px;
+    line-height: 1;
+}
+.characterType__characters {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    padding: 3px 0;
+}
+.character {
+    height: 50px;
+    width: 56px;
+    position: relative;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-size: contain, 0 0;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 2px;
+    border: 2px solid #fff;
+    -webkit-appearance: none;
+    color: #000;
+    filter: drop-shadow(0 2px 3px rgba(10, 20, 30, 0.4));
+    cursor: pointer;
+    transition: transform 200ms, background-color 200ms, border-color 200ms;
+}
+.character:hover, .character:focus {
+    transform: scale(1.05) translate(0, -1px);
+    z-index: 1;
+}
+.character:active {
+    transform: scale(1.05) translate(0, 1px);
+}
+.character.is-selected {
+    background-color: rgb(250, 160, 0);
+    border-color: rgba(0, 0, 0, 0.4);
+}
+.character__label {
+    display: none;
+}
+
+@media (min-width: 1400px) {
+    .characterType__icon {
+        top: 10px;
+        height: 20px;
+        width: 20px;
+    }
+    .characterType__label {
+        font-size: 30px;
+        padding-left: 27px;
+    }
+
+    .character {
+        height: 75px;
+        width: 84px;
+    }
+
+    .character__label {
+        display: inline-block;
+        font-family: kOverwatch;
+        font-size: 17px;
+        padding: 2px 4px;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        min-width: 50px;
+        position: absolute;
+        bottom: -14px;
+        left: 50%;
+        background-color: rgb(250, 160, 0);
+        border-radius: 3px;
+        transform: translate(-50%, 0) scale(0);
+        transition: transform 100ms ease-in;
+    }
+    .character.is-selected .character__label {
+        transform: translate(-50%, 0) scale(1);
+    }
+}
+@media (min-width: 2500px) {
+    .character {
+        height: 310px;
+        width: 180px;
+        background-size: 0 0, cover;
+    }
+
+    .character__label {
+        display: inline-block;
+        font-family: kOverwatch;
+        font-size: 30px;
+        padding: 2px 4px;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        min-width: 50px;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        background-color: rgb(250, 160, 0);
+        border-radius: 3px;
+        transform: translate(-50%, 0) scale(0);
+        transition: transform 100ms ease-in;
+    }
+    .character.is-selected .character__label {
+        transform: translate(-50%, 0) scale(1);
+    }
+}
