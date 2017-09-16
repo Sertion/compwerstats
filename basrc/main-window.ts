@@ -1,7 +1,13 @@
 const Path = require('path');
 const Url = require('url');
+const WindowStateManager = require('electron-window-state-manager');
 
 import { app, BrowserWindow } from 'electron';
+
+const windowState = new WindowStateManager('mainWindow', {
+    defaultwidth: 1200,
+    defaultHeight: 620
+});
 
 export class MainWindow {
     public static instance: MainWindow;
@@ -35,8 +41,10 @@ export class MainWindow {
 
     create() {
         this.window = new BrowserWindow({
-            height: 350,
-            width: 550,
+            height: windowState.height,
+            width: windowState.width,
+            x: windowState.x,
+            y: windowState.y,
             minHeight: 350,
             minWidth: 550,
             frame: false,
@@ -44,7 +52,11 @@ export class MainWindow {
             icon: Path.join(__dirname, '..', 'static', 'img', 'compwerstats-logo.ico')
         });
 
-        this.devTools();
+        this.window.on('close', () => {
+            windowState.saveState(this.window);
+        });
+
+        // this.devTools();
     }
 
     start(): Promise<Electron.WebContents> {

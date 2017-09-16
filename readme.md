@@ -6,3 +6,5 @@ A spreadsheet for spreadsheet sceptics.
 * Match editing
 * More stats
 * Graphs
+* Update notification
+* Installer

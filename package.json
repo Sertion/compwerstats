@@ -3,9 +3,14 @@
   "version": "0.0.1",
   "description": "Do you want to compwer your stats?",
   "license": "MIT",
+  "author": "compwerstats",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sertion/compwerstats.git"
+  },
   "main": "baapp/main",
   "scripts": {
-    "compile": "webpack && tsc --p tsconfig.baapp.json",
+    "compile": "webpack && tsc --p tsconfig.baapp.json && node build-winstaller.js",
     "watch": "webpack --watch",
     "watch-ba": "tsc -w --p tsconfig.baapp.json",
     "watch-fr": "webpack --watch"
@@ -15,6 +20,7 @@
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.7",
     "electron": "1.7.6",
+    "electron-packager": "^9.0.1",
     "file-loader": "^0.11.2",
     "node-sass": "^4.5.3",
     "raw-loader": "^0.5.1",
@@ -26,6 +32,7 @@
   },
   "dependencies": {
     "dexie": "^2.0.0-beta.2",
+    "electron-window-state-manager": "^0.3.2",
     "moment": "^2.18.1",
     "vue": "^2.4.4",
     "vue-form-generator": "^2.0.0",
