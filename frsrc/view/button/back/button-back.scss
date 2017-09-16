@@ -1,6 +1,7 @@
 .buttonBack {
     -webkit-appearance: none;
     display: block;
+    flex-grow: 1;
     text-decoration: none;
     text-transform: uppercase;
     cursor: pointer;
@@ -27,4 +28,8 @@
 .buttonBack__iconPath {
     stroke: transparent;
     fill: #fff;
+}
+@media (min-height: 720px) and (min-width: 700px) {
+    height: 20px;
+    width: 20px;
 }

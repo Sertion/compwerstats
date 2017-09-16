@@ -31,3 +31,12 @@
 .buttonChrome:hover .buttonChrome__iconPath {
     stroke: rgba(255, 255, 255, .75);
 }
+
+@media (min-height: 720px) and (min-width: 700px) {
+    .buttonChrome {
+        padding: 22px 10px 17px;
+    }
+    .buttonChrome:last-of-type {
+        padding-right: 20px;
+    }
+}

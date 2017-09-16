@@ -27,14 +27,14 @@ export default class PageFront extends Vue {
 
         this.seasonId = currentSeason.id.toString();
 
-        if (currentSeasonPlacementsLeft) {
+        if (currentSeason.placementRating) {
+            this.competitiveLink = 'competitive';
+        }
+        else if (currentSeasonPlacementsLeft) {
             this.competitiveLink = 'placement';
         }
-        else if (!currentSeason.placementRating) {
-            this.competitiveLink = 'placement-sr';
-        }
         else {
-            this.competitiveLink = 'competitive';
+            this.competitiveLink = 'placement-sr';
         }
     }
 }

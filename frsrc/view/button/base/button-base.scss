@@ -37,7 +37,6 @@
     clear: both;
     margin: 10px 20px;
 }
-
 .button--head {
     font-size: 12px;
     margin: 7px;
@@ -53,5 +52,20 @@
     to {
         box-shadow: 0 0 0 3px rgba(255, 255, 255, .75);
         background-color: rgb(12, 64, 120);
+    }
+}
+
+@media (min-height: 720px) and (min-width: 700px) {
+    .button--quick {
+        font-size: 20px;
+        padding: 10px 20px;
+        margin: 5px;
+        line-height: 20px;
+    }
+    .button--head {
+        font-size: 16px;
+        padding: 10px 20px;
+        margin: 7px;
+        line-height: 1;
     }
 }
