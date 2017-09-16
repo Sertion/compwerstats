@@ -23,7 +23,7 @@ export class CommentSuggestionController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Suggestion goes here',
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'submit',

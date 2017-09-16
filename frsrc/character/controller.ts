@@ -74,7 +74,7 @@ export class CharacterController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Character name',
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'radios',
@@ -86,7 +86,7 @@ export class CharacterController {
                         name: 'title'
                     },
                     required: true,
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'image',

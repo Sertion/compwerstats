@@ -42,7 +42,7 @@ export class RankController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Rank title',
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'image',
@@ -58,7 +58,7 @@ export class RankController {
                     label: 'Minimum rating',
                     model: 'ratingMin',
                     required: true,
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'input',
@@ -66,7 +66,7 @@ export class RankController {
                     label: 'Maximum rating',
                     model: 'ratingMax',
                     required: true,
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'submit',

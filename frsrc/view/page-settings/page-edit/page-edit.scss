@@ -11,9 +11,17 @@
         font-family: BigNoodle;
         font-size: 30px;
     }
+    .error .errors {
+        color: firebrick;
+        padding: 10px;
+        font-size: 14px;
+    }
     input.form-control[type="text"],
-    input.form-control[type="number"] {
-        -moz-appearance: none;
+    input.form-control[type="number"],
+    input.form-control[type="date"],
+    input.form-control[type="time"],
+    select.form-control,
+    textarea.form-control {
         display: block;
         box-sizing: border-box;
         width: 100%;
@@ -25,7 +33,16 @@
             0 0 3px rgba(10, 20, 30, 0.4),
             inset 0 20px 40px -10px rgba(99, 75, 236, 0.2);
     }
-    input.form-control[type="submit"] {
+    input.form-control[type="text"],
+    input.form-control[type="number"],
+    textarea.form-control {
+        -moz-appearance: none;
+    }
+    textarea.form-control {
+        height: 150px;
+        resize: none;
+    }
+    .field-submit [type="submit"] {
         -webkit-appearance: none;
         text-decoration: none;
         text-transform: uppercase;
@@ -45,7 +62,7 @@
         box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
         transition: background-color 200ms, box-shadow 200ms;
     }
-    input.form-control[type="submit"]:hover {
+    .field-submit [type="submit"]:hover {
         animation: buttonHover 500ms infinite alternate ease-in-out;
         animation-delay: 200ms;
         box-shadow: 0 0 0 2px rgba(255, 255, 255, 1);
@@ -60,6 +77,16 @@
             display: block;
         }
     }
+    .field-checklist .field-wrap {
+        padding-left: 10px;
+        column-count: 3;
+        column-gap: 30px;
+
+        label {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+    }
     .form-group {
         padding-bottom: 10px;
     }
@@ -71,6 +98,16 @@
         background-repeat: no-repeat;
         background-size: contain;
         background-position: 50% 50%;
+    }
+    .hint {
+        padding: 5px;
+        font-size: 14px;
+        font-family: Futura;
+        color: #747474;
+    }
+    .required > label:after {
+        content: '*';
+        color: orange;
     }
 }
 .removeLink {

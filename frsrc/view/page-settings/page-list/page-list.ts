@@ -5,6 +5,7 @@ import {
 
 import { HeadSelectItem } from '../../../interface';
 
+import { MatchController } from '../../../match';
 import { CharacterController } from '../../../character';
 import { CharacterTypeController } from '../../../charactertype';
 import { CommentSuggestionController } from '../../../commentsuggestion';
@@ -104,6 +105,7 @@ export default class PageSettingsList extends Vue {
 
     async fetchType() {
         const typeToConstructor = {
+            match: MatchController,
             character: CharacterController,
             charactertype: CharacterTypeController,
             commentsuggestion: CommentSuggestionController,
@@ -135,6 +137,7 @@ export default class PageSettingsList extends Vue {
 
     generateCreateLabel(): string {
         const typeToCreateLabel = {
+            match: 'Add match',
             character: 'Add Character',
             charactertype: 'Add Character Type',
             commentsuggestion: 'Add Comment Suggestion',

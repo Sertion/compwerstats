@@ -55,7 +55,7 @@ export class OverwatchMapController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Map name',
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'radios',

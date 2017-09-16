@@ -23,7 +23,7 @@ export class CharacterTypeController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Character type name',
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'image',
@@ -39,7 +39,7 @@ export class CharacterTypeController {
                     label: 'Character type order weight',
                     model: 'orderWeight',
                     required: true,
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'submit',

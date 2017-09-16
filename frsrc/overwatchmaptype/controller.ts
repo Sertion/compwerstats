@@ -23,7 +23,7 @@ export class OverwatchMapTypeController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Map type title',
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'image',

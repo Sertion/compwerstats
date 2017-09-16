@@ -226,4 +226,164 @@ export class MatchController {
 
         return stats;
     }
+
+    static async getFormSchema(create: boolean = false, saveCallback: () => void): Promise<Object> {
+        const sortByName = (a, b) => {
+            const nameA = a.getName();
+            const nameB = b.getName();
+            if (nameA === nameB) {
+                return 0
+            }
+            else {
+                return nameA >= nameB ? 1 : -1;
+            }
+        };
+        const characters = await CharacterController.getAll();
+        const maps = await OverwatchMapController.getAll();
+        const seasons = await SeasonController.getAll();
+
+        characters.sort(sortByName);
+        maps.sort(sortByName);
+
+        return {
+            fields: [
+                {
+                    type: 'radios',
+                    label: 'Match type',
+                    model: 'type',
+                    values: [
+                        {
+                            value: MatchType.Match,
+                            name: 'Match'
+                        },
+                        {
+                            value: MatchType.Placement,
+                            name: 'Placement'
+                        }
+                    ],
+                    required: true,
+                    validator: validators.required
+                },
+                {
+                    type: 'select',
+                    label: 'Season',
+                    model: 'seasonId',
+                    values: seasons,
+                    selectOptions: {
+                        value: 'id'
+                    },
+                    required: true,
+                    validator: validators.required
+                },
+                {
+                    type: 'input',
+                    inputType: 'number',
+                    label: 'Rating',
+                    model: 'rating',
+                    hint: 'rating is ignored for placements',
+                    maxlength: 50,
+                    max: 5000,
+                    min: 0,
+                    required: true,
+                    validator: validators.required
+                },
+                {
+                    type: 'radios',
+                    label: 'Match result',
+                    model: 'result',
+                    values: [
+                        {
+                            value: MatchResult.Win,
+                            name: 'Win'
+                        },
+                        {
+                            value: MatchResult.Draw,
+                            name: 'Draw'
+                        },
+                        {
+                            value: MatchResult.Loss,
+                            name: 'Loss'
+                        }
+                    ]
+                },
+                {
+                    type: 'input',
+                    inputType: 'date',
+                    label: 'Date',
+                    model: 'timeDate',
+                    required: true,
+                    validator: validators.required
+                },
+                {
+                    type: 'input',
+                    inputType: 'time',
+                    label: 'Time',
+                    model: 'timeTime',
+                    required: true,
+                    validator: validators.required
+                },
+                {
+                    type: 'select',
+                    label: 'Map',
+                    model: 'overwatchMapId',
+                    values: maps,
+                    selectOptions: {
+                        value: 'id'
+                    }
+                },
+                {
+                    type: 'checklist',
+                    label: 'Played Characters',
+                    model: 'character',
+                    listBox: true,
+                    values: characters,
+                    checklistOptions: {
+                        value: 'id'
+                    }
+                },
+                {
+                    type: 'input',
+                    inputType: 'number',
+                    label: 'Group size',
+                    max: 6,
+                    min: 1,
+                    model: 'groupsize'
+                },
+                {
+                    type: 'input',
+                    inputType: 'number',
+                    label: 'Blue team rating',
+                    hint: "Your team",
+                    max: 5000,
+                    min: 0,
+                    model: 'blueRating'
+                },
+                {
+                    type: 'input',
+                    inputType: 'number',
+                    label: 'Red team rating',
+                    hint: 'Opposing team',
+                    max: 5000,
+                    min: 0,
+                    model: 'redRating',
+                },
+                {
+                    type: 'textArea',
+                    label: 'Comment',
+                    model: 'comment'
+                },
+                {
+                    type: 'submit',
+                    validateBeforeSubmit: true,
+                    buttonText: create ? 'Create' : 'Save',
+                    onSubmit: async (model) => {
+                        await model.save();
+                        if (typeof saveCallback === 'function') {
+                            saveCallback();
+                        }
+                    }
+                }
+            ]
+        }
+    }
 }

@@ -37,7 +37,7 @@ export class SeasonController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Season name (etc. Season 12)',
-                    validators: validators.required
+                    validator: validators.required
                 },
                 {
                     type: 'input',

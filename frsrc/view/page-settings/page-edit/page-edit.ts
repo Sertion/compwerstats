@@ -1,33 +1,14 @@
 import Vue from 'vue';
-import {
-    Component,
-    Watch,
-    Prop } from 'vue-property-decorator';
+import { Component, Watch, Prop } from 'vue-property-decorator';
 
-import {
-    CharacterController,
-    Character } from '../../../character';
-import {
-    CharacterTypeController,
-    CharacterType } from '../../../charactertype';
-import {
-    CommentSuggestionController,
-    CommentSuggestion } from '../../../commentsuggestion';
-import {
-    MatchController,
-    Match } from '../../../match';
-import {
-    OverwatchMapController,
-    OverwatchMap } from '../../../overwatchmap';
-import {
-    OverwatchMapTypeController,
-    OverwatchMapType } from '../../../overwatchmaptype';
-import {
-    RankController,
-    Rank } from '../../../rank';
-import {
-    SeasonController,
-    Season } from '../../../season';
+import { CharacterController, Character } from '../../../character';
+import { CharacterTypeController, CharacterType } from '../../../charactertype';
+import { CommentSuggestionController, CommentSuggestion } from '../../../commentsuggestion';
+import { MatchController, Match } from '../../../match';
+import { OverwatchMapController, OverwatchMap } from '../../../overwatchmap';
+import { OverwatchMapTypeController, OverwatchMapType } from '../../../overwatchmaptype';
+import { RankController, Rank } from '../../../rank';
+import { SeasonController, Season } from '../../../season';
 
 import './page-edit.scss';
 
@@ -53,7 +34,7 @@ export default class PageSettingsEdit extends Vue {
 
     schema: Object = {};
 
-    model: Character | CharacterType | CommentSuggestion | OverwatchMap | OverwatchMapType | Rank | Season;
+    model: Match | Character | CharacterType | CommentSuggestion | OverwatchMap | OverwatchMapType | Rank | Season;
 
     loading: boolean = true;
 
@@ -113,11 +94,17 @@ export default class PageSettingsEdit extends Vue {
         });
     }
 
-    async fetchModel(): Promise<Character | CharacterType | CommentSuggestion | OverwatchMap | OverwatchMapType | Rank | Season> {
+    async fetchModel(): Promise<Match | Character | CharacterType | CommentSuggestion | OverwatchMap | OverwatchMapType | Rank | Season> {
         const create = this.id === 'create';
         const type = this.type + (create ? '-create' : '' );
 
         switch (type) {
+            case 'match':
+                const match = await Match.load(parseInt(this.id, 10));;
+                match.splitTime();
+                return match;
+            case 'match-create':
+                return new Match();
             case 'character':
                 return Character.load(parseInt(this.id, 10));
             case 'character-create':
@@ -151,6 +138,8 @@ export default class PageSettingsEdit extends Vue {
 
     getController() {
         switch (this.type) {
+            case 'match':
+                return MatchController;
             case 'character':
                 return CharacterController;
             case 'charactertype':

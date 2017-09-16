@@ -1,3 +1,4 @@
+import * as Moment from 'moment';
 import { CompwerstatsDatabase } from '../database';
 
 export class Match {
@@ -5,6 +6,8 @@ export class Match {
     public seasonId: number;
     public overwatchMapId: number;
     public time: number;
+    public timeDate: string;
+    public timeTime: string;
     public character: number[];
     public comment: string;
     public rating: number;
@@ -41,6 +44,13 @@ export class Match {
     async save(): Promise<number> {
         const db = CompwerstatsDatabase.getInstance();
 
+        if (this.timeDate && this.timeTime) {
+            const date = Moment(this.timeDate).format('YYYY-MM-DD');
+            this.time = Moment(`${date}T${this.timeTime}:00`).valueOf();
+            delete this.timeDate;
+            delete this.timeTime;
+        }
+
         this.id = await db.match.put(this, this.id);
 
         return this.id;
@@ -52,9 +62,21 @@ export class Match {
         return db.match.delete(this.id);
     }
 
+    splitTime() {
+        const moment = Moment(this.time);
+        this.timeDate = moment.format('YYYY-MM-DD');
+        this.timeTime = moment.format('HH:mm');
+    }
+
     getName(): string {
-        const date = new Date(this.time);
-        return date.toDateString() + ' ' + this.rating;
+        const date = Moment(this.time);
+        const when = date.format('YYYY-MM-DD HH:mm');
+        if (this.rating) {
+            return `${ when } - ${ this.type } - ${ this.rating }`;
+        }
+        else {
+            return `${ when } - ${ this.type }`;
+        }
     }
 }
 
