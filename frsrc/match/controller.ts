@@ -136,10 +136,9 @@ export class MatchController {
             }
         }
         const wld = (obj, id, key) => {
-            if (typeof key === 'undefined') {
-                debugger;
+            if (!obj || !id) {
+                return;
             }
-
             if (!obj[id]) {
                 obj[id] = {
                     win: 0,
@@ -196,15 +195,17 @@ export class MatchController {
             add(stats.totals, match.result);
             stats.totalNumberOfMatches += 1;
 
-            match.character.forEach((charId) => {
-                const char = <Character>data.characters[charId];
+            if (match.character) {
+                match.character.forEach((charId) => {
+                    const char = <Character>data.characters[charId];
 
-                // Character
-                wld(stats.character, charId, match.result);
+                    // Character
+                    wld(stats.character, charId, match.result);
 
-                // Character Types
-                wld(stats.characterType, char.typeId, match.result);
-            });
+                    // Character Types
+                    wld(stats.characterType, char.typeId, match.result);
+                });
+            }
 
             // Maps
             wld(stats.map, match.overwatchMapId, match.result);

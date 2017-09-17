@@ -31,8 +31,12 @@
     margin-right: 10px;
     float: left;
 }
-.chrome__grow {
+.chrome__update {
     flex-grow: 10;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
 }
 .chrome__rating {
     line-height: 40px;
@@ -51,13 +55,75 @@
 .chrome__quickAction {
     padding: 5px;
     padding-right: 20px;
+    font-family: Futura;
+    font-size: 14px;
 }
 .chrome__windowAction {
     white-space: nowrap;
 }
-.chrome__body {}
 
-@media (min-height: 720px) and (min-width: 700px) {
+.updateButton {
+    cursor: pointer;
+    padding: 5px 10px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    background-color: #e02200;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms;
+    max-width: 350px;
+    border-radius: 1px;
+    -webkit-app-region: no-drag;
+    box-shadow: 0 0 0 0 white;
+    animation: updateButton 10s infinite ease-in-out;
+    transition: background-color 200ms, box-shadow 200ms;
+}
+.updateButton:hover {
+    animation: updateButtonHover 500ms infinite alternate ease-in-out;
+    animation-delay: 200ms;
+    box-shadow: 0 0 0 2px white;
+    background-color: #f25824;
+}
+.updateButton--avalible {
+    pointer-events: all;
+    -webkit-app-region: no-drag;
+    opacity: 1;
+}
+
+@keyframes updateButton {
+    0% {
+        transform: scale(1);
+    }
+    96% {
+        transform: scale(1);
+    }
+    98% {
+        transform: scale(1.04);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes updateButtonHover {
+    from {
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 1);
+    }
+    to {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, .75);
+    }
+}
+
+@media (max-width: 600px) {
+    .updateButton__more {
+        display: none;
+    }
+}
+
+@media (min-height: 720px) and (min-width: 925px) {
     .chrome {
         display: grid;
         grid-template-rows: 60px auto;
@@ -69,8 +135,9 @@
         height: 50px;
         width: 50px;
     }
-    .chrome__grow {
+    .chrome__update {
         flex-grow: 10;
+        padding: 5px 30px;
     }
     .chrome__rating {
         line-height: 60px;
@@ -81,5 +148,11 @@
     }
     .chrome__ratingLabel {
         font-size: 40px;
+    }
+    .updateButton {
+        font-size: 20px;
+        padding: 10px 20px;
+        margin: 5px;
+        line-height: 20px;
     }
 }

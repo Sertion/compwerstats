@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
+import updateUrl from '../../../update-checker';
+
 import { CompwerstatsDatabase } from '../../../database';
 import { SeasonController } from '../../../season';
 import { MatchController } from '../../../match';
@@ -25,9 +27,12 @@ export default class Chrome extends Vue {
     quickAddPath: string = '';
     currentRank: Rank = null;
     currentRating: number = -1;
+    updateUrl: string = '';
+    updateClass: string = 'updateButton';
 
     created() {
         this.prepareDataBasedProperties();
+        this.fetchUpdateInformation();
         this.setupListeners();
     }
 
@@ -78,6 +83,24 @@ export default class Chrome extends Vue {
         db.match.hook('creating', callback);
         db.season.hook('creating', callback);
         db.season.hook('updating', callback);
+    }
+
+    async fetchUpdateInformation() {
+        const updateInterval = 4 * 60 * 60 * 1000;
+
+        this.updateUrl = await updateUrl();
+        this.updateClass = this.updateUrl ? 'updateButton updateButton--avalible' : 'updateButton';
+
+        setTimeout(() => {
+            this.fetchUpdateInformation();
+        }, updateInterval);
+    }
+
+    openUpdate() {
+        const { shell } = require('electron');
+        if (this.updateUrl) {
+            shell.openExternal(this.updateUrl);
+        }
     }
 
     quickAdd() {

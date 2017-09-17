@@ -1,7 +1,9 @@
 <div class="chrome">
     <div class="chrome__head">
         <div class="chrome__title">Compwerstats</div>
-        <div class="chrome__grow"></div>
+        <div class="chrome__update">
+            <a :class="updateClass" href="#" @click="openUpdate">Update<span class="updateButton__more"> avalible</span></a>
+        </div>
         <div class="chrome__rating" v-if="currentRating > 0 && currentRank">
             <img :src="currentRank.iconPath" :title="currentRank.title" class="chrome__ratingIcon">
             <div class="chrome__ratingLabel">{{ currentRating }}</div>

@@ -1,6 +1,6 @@
 {
   "name": "compwerstats",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Do you want to compwer your stats?",
   "license": "MIT",
   "author": "compwerstats",
@@ -34,6 +34,7 @@
     "dexie": "^2.0.0-beta.2",
     "electron-window-state-manager": "^0.3.2",
     "moment": "^2.18.1",
+    "semver": "^5.4.1",
     "vue": "^2.4.4",
     "vue-form-generator": "^2.0.0",
     "vue-moment": "^2.0.2",
