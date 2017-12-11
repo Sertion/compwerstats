@@ -1,12 +1,12 @@
 {
   "name": "compwerstats",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Do you want to compwer your stats?",
   "license": "MIT",
   "author": "compwerstats",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Sertion/compwerstats.git"
+    "url": "git+https://github.com/Sertion/compwerstats.git"
   },
   "main": "baapp/main",
   "scripts": {
@@ -16,28 +16,32 @@
     "watch-fr": "webpack --watch"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.2.3",
-    "clean-webpack-plugin": "^0.1.16",
+    "awesome-typescript-loader": "^3.4.1",
+    "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.28.7",
-    "electron": "1.7.6",
-    "electron-packager": "^9.0.1",
-    "file-loader": "^0.11.2",
-    "node-sass": "^4.5.3",
+    "electron": "1.7.9",
+    "electron-packager": "^10.1.0",
+    "file-loader": "^1.1.5",
+    "node-sass": "^4.7.2",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.6",
-    "style-loader": "^0.18.2",
-    "typescript": "^2.5.2",
-    "vue-property-decorator": "^5.3.0",
-    "webpack": "^3.6.0"
+    "style-loader": "^0.19.0",
+    "typescript": "^2.6.2",
+    "vue-property-decorator": "^6.0.0",
+    "webpack": "^3.10.0"
   },
   "dependencies": {
-    "dexie": "^2.0.0-beta.2",
+    "dexie": "^2.0.1",
     "electron-window-state-manager": "^0.3.2",
-    "moment": "^2.18.1",
+    "moment": "^2.19.4",
     "semver": "^5.4.1",
-    "vue": "^2.4.4",
-    "vue-form-generator": "^2.0.0",
-    "vue-moment": "^2.0.2",
-    "vue-router": "^2.7.0"
-  }
+    "vue": "^2.5.9",
+    "vue-form-generator": "^2.1.1",
+    "vue-moment": "^3.1.0",
+    "vue-router": "^3.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Sertion/compwerstats/issues"
+  },
+  "homepage": "https://github.com/Sertion/compwerstats#readme"
 }

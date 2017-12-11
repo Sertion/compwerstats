@@ -1,5 +1,6 @@
 <div class="pageCompetitive">
     <subpage back="front">
+        <form-head-select slot="head" v-model="order" :selected="order" title="Sort order" v-bind:items="sortOrders"></form-head-select>
         <season-select :selected="seasonId" @input="updateSeasonId" slot="head"></season-select>
         <loading-spinner v-if="loading"></loading-spinner>
         <div class="matchList">

@@ -24,6 +24,6 @@ export default class GroupSize extends Vue {
 
         const selected = resultElement.classList.toggle('is-selected');
 
-        this.$emit('input', selected ? resultElement.dataset.value : undefined);
+        this.$emit('input', selected ? parseInt(resultElement.dataset.value, 10) : undefined);
     }
 }

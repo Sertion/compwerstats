@@ -117,13 +117,13 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 675px) {
     .updateButton__more {
         display: none;
     }
 }
 
-@media (min-height: 720px) and (min-width: 925px) {
+@media (min-height: 720px) and (min-width: 1000px) {
     .chrome {
         display: grid;
         grid-template-rows: 60px auto;

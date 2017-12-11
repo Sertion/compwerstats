@@ -25,3 +25,12 @@
 .headSelectItem.is-selected {
     background: rgba(63, 65, 130, 0.8);
 }
+
+@media (min-height: 720px) and (min-width: 1000px) {
+    .headSelect {
+        font-size: 16px;
+    }
+    .headSelectItem {
+        padding: 10px 15px;
+    }
+}

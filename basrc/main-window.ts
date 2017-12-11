@@ -45,8 +45,8 @@ export class MainWindow {
             width: windowState.width,
             x: windowState.x,
             y: windowState.y,
-            minHeight: 350,
-            minWidth: 550,
+            minHeight: 400,
+            minWidth: 600,
             frame: false,
             title: "Compwerstats",
             icon: Path.join(__dirname, '..', 'static', 'img', 'compwerstats-logo.ico')

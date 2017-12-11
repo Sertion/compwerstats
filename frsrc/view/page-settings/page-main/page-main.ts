@@ -1,12 +1,10 @@
 import Vue from 'vue';
-import {
-    Component,
-    Watch } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 
 import './page-main.scss';
 
-import ListItemSettings from '../list-item-settings';
 import Subpage from '../../fragments/subpage';
+import ListItemSettings from '../../fragments/list-item-settings';
 
 @Component({
     template: require('./page-main.html'),

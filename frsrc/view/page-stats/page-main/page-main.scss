@@ -1,5 +1,15 @@
+/**
+ * Variables
+ */
+
+$color-bg-label: rgba(128, 73, 255, 0.28);
+$color-bg-combined: rgba(124, 197, 255, 0.42);
+$color-bg-altRow: rgba(0, 0, 0, 0.05);
+
+/**
+ * Styles
+ */
 .statsTable {
-    border-collapse: collapse;
     background: #fff;
     margin: 0 auto;
     width: 100%;
@@ -18,8 +28,17 @@
 .statsHead,
 .statsField {
     padding: 5px 10px;
-    min-width: 70px;
     text-align: left;
+    flex-grow: 1;
+    width: 20%;
+}
+.statsHead--label,
+.statsField--label {
+    background-color: $color-bg-label;
+    width: 25%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .statsHead--percentage,
 .statsField--percentage {
@@ -30,21 +49,26 @@
     text-align: right;
 }
 .statsField:nth-child(2n+1) {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: $color-bg-altRow;
 }
-.statsGroups:after {
-    content: "";
-    height: 10px;
-    display: block;
+.statsField--label:nth-child(2n+1) {
+    background-color: mix($color-bg-altRow, $color-bg-label);
 }
-.statsGroups:last-of-type:after {
-    height: 0;
+.statsGroups {
+    margin-bottom: 10px;
+}
+.statsGroups:last-of-type {
+    margin-bottom: 0;
+}
+.statsRow {
+    display: flex;
+    justify-content: space-between;
 }
 .statsRow:nth-child(2n+1) {
-    background-color: rgba(0, 0, 0, 0.07);
+    background-color: $color-bg-altRow;
 }
 .statsRow.statsRow--combined {
-    background-color: rgba(124, 197, 255, 0.42);
+    background-color: $color-bg-combined;
 }
 .statsPercent {
     font-size: .75em;

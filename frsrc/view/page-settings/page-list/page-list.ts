@@ -1,7 +1,5 @@
 import Vue from 'vue';
-import {
-    Component,
-    Watch } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 
 import { HeadSelectItem } from '../../../interface';
 
@@ -18,7 +16,7 @@ import LoadingSpinner from '../../fragments/loading-spinner';
 import Subpage from '../../fragments/subpage';
 import FormHeadSelect from '../../fragments/head-select';
 import ButtonBase from '../../button/base';
-import ListItemSettings from '../list-item-settings';
+import ListItemSettings from '../../fragments/list-item-settings';
 
 
 @Component({
@@ -30,31 +28,21 @@ import ListItemSettings from '../list-item-settings';
         ButtonBase,
         Subpage,
         ListItemSettings
-    },
-    data: {
-        type: ''
     }
 })
 export default class PageSettingsList extends Vue {
-    type: string;
+    type: string = '';
     loading: boolean = true;
     items: any[];
     order: string = 'id';
     createLabel: string;
-
-    data() {
-        return {
-            loading: false,
-            items: null,
-            sortOrders: <HeadSelectItem[]>[{
-                value: 'id',
-                label: 'Id'
-            }, {
-                value: 'name',
-                label: 'Name'
-            }]
-        }
-    }
+    sortOrders: HeadSelectItem[] = [{
+        value: 'id',
+        label: 'Id'
+    }, {
+        value: 'name',
+        label: 'Name'
+    }];
 
     created() {
         this.type = this.$route.params.type;
