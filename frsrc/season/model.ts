@@ -4,12 +4,14 @@ export class Season {
     public id: number;
     public name: string;
     public placementRating: number;
+    public archived: boolean;
 
-    static create(name: string, placementRating?: number): Season {
+    static create(name: string, placementRating?: number, archived: boolean = false): Season {
         const season = new Season();
 
         season.name = name;
         season.placementRating = placementRating;
+        season.archived = archived;
 
         return season;
     }
@@ -23,7 +25,7 @@ export class Season {
     async save(): Promise<number> {
         const db = CompwerstatsDatabase.getInstance();
 
-        this.id = await db.season.put(this, this.id);
+        this.id = await db.season.put(this);
 
         return this.id;
     }
@@ -35,6 +37,7 @@ export class Season {
     }
 
     getName(): string {
-        return this.name;
+        const [name] = this.name.match(/[\d]+/);
+        return name;
     }
 }

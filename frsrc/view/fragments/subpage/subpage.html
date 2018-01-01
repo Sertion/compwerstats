@@ -1,5 +1,5 @@
-<div class="subpage">
-    <div class="subpage__back">
+<div :class="`subpage${ noHead && !back ? ' subpage--noHead' : '' }${ !back ? ' subpage--noBack' : ''}`">
+    <div class="subpage__back" v-if="back">
         <button-back :to="to"></button-back>
     </div>
     <div class="subpage__head">

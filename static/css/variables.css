@@ -1,10 +1,45 @@
 :root {
-    --color-background-chrome: #1c74bb;
-    --color-foreground-chrome: #ffffff;
-    --color-background-button: #1c74bb;
-    --color-foreground-button: #ffffff;
+    --color-background-chrome: #01111d;
+    --color-foreground-chrome: #cbdde4;
+    --color-background-chrome-hover: #1c2e3e;
+    --color-foreground-update-hover: #eff6f8;
+    --color-foreground-chrome-active: #61e785;
+    --color-background-content: #1b242b;
+    --color-foreground-content: #f9fdff;
+    --color-background-update: #b12b13;
+    --color-foreground-update: #e0cfcc;
+    --color-background-update-active: #d43b20;
+    --color-background-update-hover: #be3e27;
+    --color-background-update-focus: var(--color-background-update-hover);
 
-    --color-foreground-label: #263451;
+    --color-background-form-button: var(--color-background-label);
+    --color-background-form-button-hover: var(--color-background-label-hover);
+    --color-background-form-button-active: var(--color-background-label-active);
+    --color-background-form-button-focus: var(--color-background-form-button-hover);
+    --color-background-form-button-selected: #26508b;
+    --color-border-form-button: #2d4e68;
+    --color-foreground-form-button: var(--color-foreground-label);
+
+    --color-background-form-input: var(--color-background-label);
+    --color-border-form-input: var(--color-foreground-chrome);
+    --color-foreground-form-input: var(--color-foreground-label);
+    --color-foreground-form-input-placeholder: #4f687c;
+
+    --color-background-button: #3e3e3e;
+    --color-foreground-button: #c2c2c2;
+
+    --color-background-label: #1d2831;
+    --color-background-label-hover: #28353f;
+    --color-background-label-active: #2a4153;
+    --color-foreground-label: var(--color-foreground-chrome);
+
+    --color-result-win: #94e04e;
+    --color-result-draw: #f5f062;
+    --color-result-loss: #e4586b;
+    --color-result-unknown: #acacac;
+
+    --color-team-red: #eb9da4;
+    --color-team-blue: #9dbfeb;
 
     --color-type-map: hsl(10, 62%, 49%);
     --color-type-maptype: hsl(25, 62%, 49%);

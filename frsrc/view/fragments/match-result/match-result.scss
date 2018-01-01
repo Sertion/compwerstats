@@ -1,76 +1,43 @@
 .results {
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: center;
 }
 .resultsLabel {
     cursor: pointer;
     display: block;
-    padding: 20px 10px;
+    padding: 10px 0;
     margin: 0 5px;
-    min-width: 100px;
-    border-radius: 2px;
+    min-width: 120px;
     text-align: center;
     line-height: 1;
-    color: #eee;
-    border-width: 2px;
-    border-style: solid;
+    border: 0 solid red;
     -webkit-appearance: none;
-    background: url('../../../../static/img/button-hightlight.png') no-repeat 50%;
-    background-size: cover;
-    filter: saturate(0.25);
-    box-shadow: 0 2px 3px 0 rgba(10, 20, 30, 0.4);
-    transition: filter 200ms, transform 200ms;
+    background-color: var(--color-background-form-button);
 }
-.resultsLabel:hover,
+.resultsLabel:hover {
+    background-color: var(--color-background-form-button-hover);
+}
 .resultsLabel:focus {
-    transform: translate(0, -1px);
+    background-color: var(--color-background-form-button-focus);
 }
 .resultsLabel:active {
-    transform: translate(0, 2px);
+    background-color: var(--color-background-form-button-active);
 }
 .resultsLabel.is-selected {
-    filter: saturate(1);
-    border-color: #fff;
-    color: #fff;
+    background-color: var(--color-background-form-button-selected);
 }
 .resultsLabel--win {
-    background-color: #88b60b;
-    border-color: #88b60b;
+    color: var(--color-result-win);
 }
 .resultsLabel--draw {
-    background-color: #cbc728;
-    border-color: #cbc728;
+    color: var(--color-result-draw);
 }
 .resultsLabel--loss {
-    background-color: #9d2b49;
-    border-color: #9d2b49;
+    color: var(--color-result-loss);
 }
 .resultsLabel__label {
-    font-family: kOverwatch;
-    text-align: center;
+    font-family: Roboto, sans-serif;
     font-size: 20px;
-    text-shadow:
-        1px 1px 0 rgb(10, 20, 30),
-        -1px 1px 0 rgb(10, 20, 30),
-        1px -1px 0 rgb(10, 20, 30),
-        -1px -1px 0 rgb(10, 20, 30);
-}
-
-@media (min-width: 2500px) {
-    .resultsLabel {
-        padding: 40px 20px;
-        width: 300px;
-    }
-    .resultsLabel:hover,
-    .resultsLabel:focus {
-        transform: translate(0, -5px);
-    }
-    .resultsLabel:active {
-        transform: translate(0, 2px);
-    }
-    .resultsLabel__label {
-        font-size: 50px;
-    }
 }

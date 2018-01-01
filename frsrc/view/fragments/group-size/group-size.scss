@@ -1,6 +1,7 @@
 .groupSize {
-    padding: 20px;
+    padding: 10px 0;
     display: flex;
+    justify-content: center;
 }
 .groupSizeButton {
     flex-grow: 1;
@@ -9,42 +10,32 @@
     -webkit-appearance: none;
     border-width: 0;
     margin: 0 2px;
-    background-color: rgb(28, 116, 187);
-    border: 2px solid rgb(28, 116, 187);
-    box-shadow: 0 2px 3px rgba(10, 20, 30, 0.4);
-    padding: 20px 0;
-    border-radius: 2px;
-    font-size: 30px;
-    color: #fff;
+    background-color: var(--color-background-form-button);
+    border: 2px solid var(--color-background-form-button);
+    padding: 10px 0;
+    max-width: 120px;
+    color: var(--color-foreground-form-button);
     text-align: center;
-    font-family: Futura;
-    transition: transform 200ms, background-color 200ms, border-color 200ms;
+    font-family: Roboto, sans-serif;
 }
 .groupSizeButton:hover,
 .groupSizeButton:focus {
-    transform: translate(0, -1px)
+    background-color: var(--color-background-form-button-hover);
 }
 .groupSizeButton:active {
-    transform: translate(0, 1px)
+    background-color: var(--color-background-form-button-active);
 }
 .groupSizeButton.is-selected {
-    background-color: rgb(16, 88, 145);
-    border-color: #fff;
+    background-color: var(--color-background-form-button-selected);
+    border-color: var(--color-background-form-button-selected);
 }
-
-@media (max-width: 900px) {
-    .groupSizeButton {
-        padding: 10px 0;
-    }
+.groupSizeButton__label {
+    text-transform: uppercase;
+    font-size: 10px;
+    line-height: 1;
+    opacity: 0.75;
 }
-@media (min-width: 1400px) {
-    .groupSizeButton {
-        padding: 30px 0;
-    }
-}
-@media (min-width: 2500px) {
-    .groupSizeButton {
-        padding: 40px 0;
-        font-size: 50px;
-    }
+.groupSizeButton__value {
+    font-size: 20px;
+    line-height: 1;
 }

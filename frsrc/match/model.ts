@@ -1,5 +1,7 @@
 import * as Moment from 'moment';
 import { CompwerstatsDatabase } from '../database';
+import { MatchController } from './controller';
+import { MatchResult, MatchType } from '../interface';
 
 export class Match {
     public id: number;
@@ -16,8 +18,9 @@ export class Match {
     public type: MatchType;
     public redRating: number;
     public blueRating: number;
+    public streak: number;
 
-    static create(seasonId: number, overwatchMapId: number, time: number, character: number[], rating: number, type: MatchType, result: MatchResult, comment?: string, groupsize?: number, redRating?: number, blueRating?: number): Match {
+    static create(seasonId: number, overwatchMapId: number, time: number, character: number[], rating: number, type: MatchType, result: MatchResult, comment?: string, groupsize?: number, redRating?: number, blueRating?: number, streak?: number): Match {
         const match = new Match();
 
         match.seasonId = seasonId;
@@ -31,6 +34,7 @@ export class Match {
         match.type = type;
         match.redRating = redRating;
         match.blueRating = blueRating;
+        match.streak = streak;
 
         return match;
     }
@@ -51,7 +55,7 @@ export class Match {
             delete this.timeTime;
         }
 
-        this.id = await db.match.put(this, this.id);
+        this.id = await db.match.put(this);
 
         return this.id;
     }
@@ -78,15 +82,4 @@ export class Match {
             return `${ when } - ${ this.type }`;
         }
     }
-}
-
-export enum MatchType {
-    Placement = 'placement',
-    Match = 'match'
-}
-
-export enum MatchResult {
-    Win = 'win',
-    Loss = 'loss',
-    Draw = 'draw'
 }

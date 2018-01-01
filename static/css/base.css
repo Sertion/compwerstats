@@ -1,16 +1,14 @@
 body {
     margin: 0;
-    background: url('../img/chrome-bg.jpg') no-repeat 50% 0%;
-    background-size: 1280px 500px;
-    font-family: Futura, sans-serif;
-
-    display: grid;
-    grid-template-rows: 40px auto;
+    background-color: var(--color-background-content);
+    color: var(--color-foreground-content);
+    font-family: Roboto, sans-serif;
     height: 100vh;
 }
-
-@media (min-width: 1280px) {
-    body {
-        background-size: 100% auto;
-    }
+chrome {
+    text-align: center;
+    line-height: 100vh;
+    font-size: 40px;
+    display: block;
+    -webkit-app-region: drag;
 }

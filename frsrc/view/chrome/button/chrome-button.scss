@@ -13,7 +13,11 @@
 
 .buttonChrome:hover {
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
-    background-color: rgba(63, 65, 130, 1);
+    background-color: rgb(63, 65, 130);
+}
+
+.buttonChrome:last-of-type:hover {
+    background-color: rgb(130, 63, 69);
 }
 
 .buttonChrome__icon {
@@ -30,13 +34,4 @@
 
 .buttonChrome:hover .buttonChrome__iconPath {
     stroke: rgba(255, 255, 255, .75);
-}
-
-@media (min-height: 720px) and (min-width: 1000px) {
-    .buttonChrome {
-        padding: 22px 10px 17px;
-    }
-    .buttonChrome:last-of-type {
-        padding-right: 20px;
-    }
 }

@@ -4,6 +4,12 @@ import { Dexie } from 'dexie';
 import { Season } from './model';
 import { CompwerstatsDatabase } from '../database';
 
+import { MatchController } from '../match';
+
+import { MatchType } from '../interface';
+
+import { SeasonMode } from '../interface';
+
 export class SeasonController {
     static async getAll(): Promise<Season[]> {
         const database = CompwerstatsDatabase.getInstance();
@@ -12,18 +18,51 @@ export class SeasonController {
         return table.toArray();
     }
 
-    static async getCurrent(): Promise<Season> {
+    static async getActive(): Promise<Season[]> {
         const database = CompwerstatsDatabase.getInstance();
         const table = database.season;
+        const active = await table.toArray();
 
-        return table.reverse().first();
+        return active.filter(season => !season.archived);
+    }
+
+    static async getCurrent(): Promise<Season> {
+        const activeSeasons = await SeasonController.getActive();
+
+        return activeSeasons.reverse()[0];
     }
 
     static async getSeasonById(seasonId: number): Promise<Season> {
         const database = CompwerstatsDatabase.getInstance();
         const table = database.season;
+        
+        if (seasonId) {
+            return table.where('id').equals(seasonId).first();
+        }
+        else {
+            return null;
+        }
+    }
 
-        return table.where('id').equals(seasonId).first();
+    static async getMode(seasonId: number): Promise<SeasonMode> {
+        const season = await SeasonController.getSeasonById(seasonId);
+
+        if (!season) {
+            return null;
+        }
+
+        const placements = await MatchController.getBySeason(seasonId, MatchType.Placement);
+        const matches = await MatchController.getBySeason(seasonId, MatchType.Match);
+
+        if (season.placementRating > 0 || matches.length) {
+            return SeasonMode.Matches;
+        }
+        else if (placements.length >= 10) {
+            return SeasonMode.PlacementsComplete;
+        }
+        else {
+            return SeasonMode.Placements;
+        }
     }
 
     static async getFormSchema(create: boolean = false, saveCallback: () => void): Promise<Object> {
@@ -31,12 +70,13 @@ export class SeasonController {
             fields: [
                 {
                     type: 'input',
-                    inputType: 'text',
-                    label: 'Name',
+                    inputType: 'number',
+                    label: 'Season Number',
                     model: 'name',
-                    maxlength: 50,
+                    max: 9999,
+                    min: 0,
                     required: true,
-                    placeholder: 'Season name (etc. Season 12)',
+                    placeholder: 'Season number (etc. 12)',
                     validator: validators.required
                 },
                 {
@@ -47,6 +87,11 @@ export class SeasonController {
                     max: 5000,
                     min: 0,
                     placeholder: 'Placement SR',
+                },
+                {
+                    type: 'checkbox',
+                    label: 'Archive (an archived season will not be selectable in the season selector)',
+                    model: 'archive'
                 },
                 {
                     type: 'submit',

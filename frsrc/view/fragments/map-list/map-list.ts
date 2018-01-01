@@ -40,8 +40,7 @@ export default class MapList extends Vue {
             list.push({
                 map: map,
                 type: mapType,
-                selected: this.selectedId === map.id,
-                background: `background-image: url(${ map.getIcon() })`
+                selected: this.selectedId === map.id
             });
         });
 

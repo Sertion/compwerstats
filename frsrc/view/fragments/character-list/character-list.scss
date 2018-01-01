@@ -1,126 +1,62 @@
 .characterList {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-around;
+    padding: 10px 10px 5px;
 }
+
 .characterType {
-    position: relative;
-    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 4px;
+    padding-bottom: 10px;
 }
-.characterType__icon {
-    position: absolute;
-    top: 7px;
-    left: 7px;
-    height: 15px;
-    width: 15px;
-}
-.characterType__label {
-    font-size: 20px;
-    font-family: BigNoodle;
-    padding-left: 20px;
-    line-height: 1;
-}
-.characterType__characters {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-    padding: 3px 0;
-}
+
 .character {
-    height: 50px;
-    width: 56px;
-    position: relative;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    background-size: contain, 0 0;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 2px;
-    border: 2px solid #fff;
     -webkit-appearance: none;
-    color: #000;
-    filter: drop-shadow(0 2px 3px rgba(10, 20, 30, 0.4));
+    display: grid;
+    border-radius: 0;
+    text-decoration: none;
     cursor: pointer;
-    transition: transform 200ms, background-color 200ms, border-color 200ms;
+    background-color: var(--color-background-label);
+    border-width: 0;
+    transition:
+        background-color 200ms,
+        transform 200ms,
+        opacity 200ms;
+
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 32px 50px;
+    grid-template-areas: "label icon image";
 }
 .character:hover, .character:focus {
-    transform: scale(1.05) translate(0, -1px);
-    z-index: 1;
+    background-color: var(--color-background-label-hover);
 }
 .character:active {
-    transform: scale(1.05) translate(0, 1px);
+    background-color: var(--color-background-form-button-active);
 }
 .character.is-selected {
-    background-color: rgb(250, 160, 0);
-    border-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--color-background-form-button-selected);
+}
+.character__typeIcon {
+    grid-area: icon;
+    height: 16px;
+    width: 16px;
+    margin: 0 5px;
+    align-self: center;
+    opacity: 0.75;
 }
 .character__label {
-    display: none;
+    grid-area: label;
+    font-size: 14px;
+    line-height: 2;
+    font-family: Roboto, sans-serif;
+    padding-left: 7px;
+    color: var(--color-foreground-label);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-@media (min-width: 1400px) {
-    .characterType__icon {
-        top: 10px;
-        height: 20px;
-        width: 20px;
-    }
-    .characterType__label {
-        font-size: 30px;
-        padding-left: 27px;
-    }
-
-    .character {
-        height: 75px;
-        width: 84px;
-    }
-
-    .character__label {
-        display: inline-block;
-        font-family: kOverwatch;
-        font-size: 17px;
-        padding: 2px 4px;
-        line-height: 1;
-        text-align: center;
-        white-space: nowrap;
-        min-width: 50px;
-        position: absolute;
-        bottom: -14px;
-        left: 50%;
-        background-color: rgb(250, 160, 0);
-        border-radius: 3px;
-        transform: translate(-50%, 0) scale(0);
-        transition: transform 100ms ease-in;
-    }
-    .character.is-selected .character__label {
-        transform: translate(-50%, 0) scale(1);
-    }
-}
-@media (min-width: 2500px) {
-    .character {
-        height: 310px;
-        width: 180px;
-        background-size: 0 0, cover;
-    }
-
-    .character__label {
-        display: inline-block;
-        font-family: kOverwatch;
-        font-size: 30px;
-        padding: 2px 4px;
-        line-height: 1;
-        text-align: center;
-        white-space: nowrap;
-        min-width: 50px;
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        background-color: rgb(250, 160, 0);
-        border-radius: 3px;
-        transform: translate(-50%, 0) scale(0);
-        transition: transform 100ms ease-in;
-    }
-    .character.is-selected .character__label {
-        transform: translate(-50%, 0) scale(1);
-    }
+.character__image {
+    background-size: cover;
+    background-position: 50%;
+    transition: filter 200ms;
+    filter: saturate(1);
 }

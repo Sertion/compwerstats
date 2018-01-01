@@ -1,8 +1,10 @@
 import { validators } from 'vue-form-generator';
 
 import { Dexie } from 'dexie';
-import { Match, MatchType, MatchResult } from './model';
+import { Match } from './model';
 import { CompwerstatsDatabase } from '../database';
+
+import { MatchType, MatchResult } from '../interface';
 
 import * as moment from 'moment';
 
@@ -41,12 +43,12 @@ export class MatchController {
         return placementMatches.length < 10;
     }
 
-    static async latestSeasonMatch(seasonId: number): Promise<Match> {
+    static async latestSeasonMatch(seasonId: number, type: MatchType = MatchType.Match): Promise<Match> {
         const database = CompwerstatsDatabase.getInstance();
         const table = database.match;
 
         const lastMatch = await table
-            .where('[seasonId+type]').equals([seasonId, MatchType.Match])
+            .where('[seasonId+type]').equals([seasonId, type])
             .limit(1).reverse().sortBy('time');
 
         return lastMatch[0];
@@ -77,40 +79,32 @@ export class MatchController {
         }
     }
 
-    static async recalculateResults(seasonId: number): Promise<void> {
-        // Transaction and a cool loop I guess.
+    static async recalculateStreaks(seasonId: number, type: MatchType): Promise<void> {
+        const matches = await MatchController.getBySeason(seasonId, type);
+        if (matches.length) {
+            let lastResult = matches[0].result;
+            let currentStreak = 0;
+
+            matches.forEach((match) => {
+                if (lastResult === match.result) {
+                    currentStreak = currentStreak + 1;
+                    match.streak = currentStreak;
+                }
+                else {
+                    lastResult = match.result;
+                    currentStreak = 1;
+                    match.streak = currentStreak;
+                }
+
+                match.save();
+            });
+        }
     }
 
     /**
      * Statistics
      */
     static async calculateStatistics(seasonId: number) {
-        const timeGroups = {
-            '0': '00-02',
-            '1': '00-02',
-            '2': '00-02',
-            '3': '03-05',
-            '4': '03-05',
-            '5': '03-05',
-            '6': '06-08',
-            '7': '06-08',
-            '8': '06-08',
-            '9': '09-11',
-            '10': '09-11',
-            '11': '09-11',
-            '12': '12-14',
-            '13': '12-14',
-            '14': '12-14',
-            '15': '15-17',
-            '16': '15-17',
-            '17': '15-17',
-            '18': '18-20',
-            '19': '18-20',
-            '20': '18-20',
-            '21': '21-23',
-            '22': '21-23',
-            '23': '21-23'
-        };
         const idToKey = (result, item) => {
             result[item.id] = item;
             return result;
@@ -120,6 +114,7 @@ export class MatchController {
                 .map((key) => from[key])
                 .reduce((result, current) => {
                     result[current.id] = {
+                        total: 0,
                         win: 0,
                         draw: 0,
                         loss: 0
@@ -141,12 +136,14 @@ export class MatchController {
             }
             if (!obj[id]) {
                 obj[id] = {
+                    total: 0,
                     win: 0,
                     draw: 0,
                     loss: 0
                 };
             }
 
+            obj[id].total += 1;
             obj[id][key] += 1;
         }
         const data = {
@@ -169,31 +166,15 @@ export class MatchController {
             data: data
         };
 
-        var lastResult,
-            currentStreak,
-            longestStreak = {
-                win: 0,
-                draw: 0,
-                loss: 0
-            };
+        var lastResult;
+
+        stats.totalNumberOfMatches = data.matches.length;
 
         data.matches.forEach((match) => {
-            // Streak
-            if (lastResult === match.result) {
-                currentStreak += 1;
-
-                if (currentStreak > longestStreak[lastResult]) {
-                    longestStreak[lastResult] = currentStreak;
-                }
-            }
-            else {
-                currentStreak = 1;
-                lastResult = match.result;
-            }
+            const characterTypes = new Set;
 
             // Totals
             add(stats.totals, match.result);
-            stats.totalNumberOfMatches += 1;
 
             if (match.character) {
                 match.character.forEach((charId) => {
@@ -203,9 +184,14 @@ export class MatchController {
                     wld(stats.character, charId, match.result);
 
                     // Character Types
-                    wld(stats.characterType, char.typeId, match.result);
+                    characterTypes.add(char.typeId);
                 });
             }
+
+            // Character Types
+            characterTypes.forEach((typeId) => {
+                wld(stats.characterType, typeId, match.result);
+            });
 
             // Maps
             wld(stats.map, match.overwatchMapId, match.result);
@@ -218,7 +204,7 @@ export class MatchController {
             // Time
             const momentTime = moment(match.time);
 
-            wld(stats.timeRange, timeGroups[momentTime.hour()], match.result);
+            wld(stats.timeRange, momentTime.hour(), match.result);
             wld(stats.dayOfTheWeek, momentTime.isoWeekday(), match.result);
 
             // Groupsize
@@ -379,6 +365,7 @@ export class MatchController {
                     buttonText: create ? 'Create' : 'Save',
                     onSubmit: async (model) => {
                         await model.save();
+                        await MatchController.recalculateStreaks(model.seasonId, model.type);
                         if (typeof saveCallback === 'function') {
                             saveCallback();
                         }

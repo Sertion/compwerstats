@@ -1,21 +1,42 @@
 <div class="chrome">
     <div class="chrome__head">
         <div class="chrome__title">Compwerstats</div>
-        <div class="chrome__update">
-            <a :class="updateClass" href="#" @click="openUpdate">Update<span class="updateButton__more"> avalible</span></a>
-        </div>
-        <div class="chrome__rating" v-if="currentRating > 0 && currentRank">
-            <img :src="currentRank.iconPath" :title="currentRank.title" class="chrome__ratingIcon">
-            <div class="chrome__ratingLabel">{{ currentRating }}</div>
-        </div>
-        <div class="chrome__quickAction">
-            <button-base v-if="loaded" type="quick" :label="quickAddLabel" @clicked="quickAdd($event)"></button-base>
+        <div class="chrome__rating" v-if="$store.state.rating > 0 && $store.state.rank">
+            <img :src="$store.state.rank.iconPath" :title="$store.state.rank.title" class="chrome__ratingIcon">
+            <div class="chrome__ratingLabel">{{ $store.state.rating }}</div>
         </div>
         <div class="chrome__windowActions">
             <button-chrome title="Minimize" action="minimize" path="M1.5,14.5H14.5z"></button-chrome>
             <button-chrome title="Maximize" action="maximize" path="M1.5,1.5H14.5V14.5H1.5z"></button-chrome>
             <button-chrome title="Close" action="close" path="M1.5,1.5L14.5,14.5M14.5,1.5L1.5,14.5z"></button-chrome>
         </div>
+    </div>
+    <div class="chrome__sidebar">
+        <template v-if="season">
+            <router-link class="sidebarLink sidebarLink--competitive" title="Competitive" :to="mainLink">
+                <svg class="sidebarLink__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1333 1012"><path d="M660 906l-81-82-76-76 21-22a6305 6305 0 0 0 54-53l35 35 39 37c8 4 18 4 27 1 8-3 16-11 63-60 6-7 13-13 14-13l38 37 37 37-82 83-83 82-6-6zM399 705v-88l31-31c43-44 46-47 46-61s-3-17-48-63l-43-44c0-1 0-4 2-7 2-6 2-7 0-14l-9-15-142-144-136-137 163-1 379 383 1 63c1 63 1 63 4 69 5 9 10 14 17 15 10 2 19-5 24-19 2-6 2-12 3-68v-61l379-382h163l-136 138-143 145c-7 11-9 18-7 27l2 7-6 7-40 40c-31 32-40 42-44 49l-1 11c0 15 3 19 56 73l21 21v174a11100 11100 0 0 1-179-177c-1 0-19 16-39 36-21 22-24 28-39 37-4 2-7 3-11 3s-8-1-11-3c-16-8-14-11-40-37l-38-36c-1 0-42 40-90 89l-89 89zm-99-151l-49-52c-4-8-4-13-5-69-1-62 0-72 6-74h6c4 1 151 150 154 156 3 4 3 14 0 19l-10 12a24050 24050 0 0 1-53 55l-49-47zm679 42a2476 2476 0 0 0-58-62c-3-5-2-15 1-20a10389 10389 0 0 0 152-154c6-3 9-2 12 4 2 6 2 121 0 129l-6 12-95 96-6-5zM540 302l127-126 127 127-128 126z" fill="currentColor"/></svg>
+                <span class="sidebarLink__label">Comp</span>
+            </router-link>
+            <router-link class="sidebarLink sidebarLink--statistics" title="Statistics" to="/stats">
+                <svg class="sidebarLink__icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 353 268" height="1012" width="1333"><path d="M6 192h44v76H6zM105 163h44v105h-44zM204 143h44v125h-44zM303 89h44v179h-44zM28 103a28 28 0 0 0-28 28 28 28 0 0 0 28 28 28 28 0 0 0 27-28 28 28 0 0 0-27-28zm0 16a12 12 0 0 1 12 12 12 12 0 0 1-12 12 12 12 0 0 1-13-12 12 12 0 0 1 13-12zM127 74a28 28 0 0 0-28 28 28 28 0 0 0 28 28 28 28 0 0 0 28-28 28 28 0 0 0-28-28zm0 16a12 12 0 0 1 12 12 12 12 0 0 1-12 12 12 12 0 0 1-12-12 12 12 0 0 1 12-12zM226 54a28 28 0 0 0-27 28 28 28 0 0 0 27 28 28 28 0 0 0 28-28 28 28 0 0 0-28-28zm0 16a12 12 0 0 1 13 12 12 12 0 0 1-13 12 12 12 0 0 1-12-12 12 12 0 0 1 12-12zM325 0a28 28 0 0 0-28 28 28 28 0 0 0 28 28 28 28 0 0 0 28-28 28 28 0 0 0-28-28zm0 16a12 12 0 0 1 12 12 12 12 0 0 1-12 12 12 12 0 0 1-12-12 12 12 0 0 1 12-12z" fill="currentColor"/><path d="M46 127l63-16M144 99l67-15M244 73l65-36" fill="none" stroke="currentColor" stroke-width="12"/></svg>
+                <span class="sidebarLink__label">Stats</span>
+            </router-link>
+            <div class="sidebarInfo sidebarInfo--season" @click.ctrl="openInspector">
+                <div class="sidebarInfo__label">Season</div>
+                <div class="sidebarInfo__value">{{ season.getName() }}</div>
+            </div>
+        </template>
+        <a :class="updateClass" href="#" @click="openUpdate">
+            <span class="sidebarLink__label">Update avalible</span>
+        </a>
+        <router-link v-if="buttonInfo" class="sidebarLink sidebarLink--addMatch" :title="buttonInfo.label" :to="buttonInfo.path">
+            <svg class="sidebarLink__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1333 1012"><path d="M263 100l-163 1 136 137 142 144 9 15c2 7 2 8 0 14-2 3-2 6-2 7l43 44c45 46 48 49 48 63s-3 17-46 61l-31 31v176l89-89c48-49 89-89 90-89l38 36c26 26 24 29 40 37 3 2 7 3 11 3s7-1 11-3c10-6 15-11 23-20a85 85 0 0 1 85-82h73v-53l-1-9 1-11a85 85 0 0 1 79-84l5-5 6-7-2-7c-2-9 0-16 7-27l143-145 136-138h-163L691 482v61c-1 56-1 62-3 68-5 14-14 21-24 19-7-1-12-6-17-15-3-6-3-6-4-69l-1-63-379-383zm404 76L540 302l126 127 128-126-127-127zm413 182l-6 2a10389 10389 0 0 1-68 69h78a85 85 0 0 1 3 0c1-31 0-62-1-65-2-4-4-6-6-6zm-828 1c-6 2-7 12-6 74 1 56 1 61 5 69l49 52 49 47a24050 24050 0 0 0 53-55l10-12c3-5 3-15 0-19-3-6-150-155-154-156h-6zm326 314a6305 6305 0 0 1-54 53l-21 22 76 76 81 82 6 6 52-51a85 85 0 0 1-17-50v-83c-13 13-17 16-22 18-9 3-19 3-27-1l-39-37-35-35zM946 515v158H788v136h158v158h136V809h158V673h-158V515z" fill="currentColor"/></svg>
+            <span class="sidebarLink__label">{{ buttonInfo.shortLabel }}</span>
+        </router-link>
+        <router-link class="sidebarLink sidebarLink--settings" title="Settings" to="/settings/">
+            <svg class="sidebarLink__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -256 1792 1792"><path d="M1145.492 645.424q0-106-75-181t-181-75q-106 0-181 75t-75 181q0 106 75 181t181 75q106 0 181-75t75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z" fill="currentColor"/></svg>
+            <span class="sidebarLink__label">Settings</span>
+        </router-link>
     </div>
     <div class="chrome__body">
         <router-view></router-view>

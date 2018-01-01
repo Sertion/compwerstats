@@ -44,7 +44,7 @@ export default class CharacterList extends Vue {
                         return {
                             character: character,
                             selected: this.selectedIds.includes(character.id),
-                            background: `background-image: url(${ character.iconPath }), url(${ character.imagePath })`
+                            background: `background-image: url(${ character.iconPath })`
                         }
                     });
 

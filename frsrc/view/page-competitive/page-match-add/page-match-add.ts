@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 
-import { Match, MatchController, MatchType } from '../../../match';
+import { SeasonMode, MatchType } from '../../../interface';
+
+import { Match, MatchController } from '../../../match';
 import { Character, CharacterController } from '../../../character';
 import { CharacterType, CharacterTypeController } from '../../../charactertype';
 import { CommentSuggestion, CommentSuggestionController } from '../../../commentsuggestion';
+import { SeasonController } from '../../../season';
 
 import './page-match-add.scss';
 
@@ -36,42 +39,26 @@ export default class PageMatchAdd extends Vue {
     comments: CommentSuggestion[]
     seasonId: number;
     comment: string = '';
-
-    @Prop()
-    type: string;
+    type: MatchType;
 
     created() {
         this.fetchData();
     }
 
     async fetchData() {
-        const type = this.type === 'competitive' ? MatchType.Match : MatchType.Placement;
+        this.type = <MatchType>(this.$store.state.seasonMode === SeasonMode.Placements ? MatchType.Placement : MatchType.Match);
 
         this.loading = true;
 
-        this.seasonId = parseInt(this.$route.params.seasonId, 10);
+        this.seasonId = this.$store.state.seasonId;
 
         this.comments = await CommentSuggestionController.getAll();
 
         this.match = new Match();
         this.match.seasonId = this.seasonId;
-        this.match.type = type;
+        this.match.type = this.type === MatchType.Placement ? MatchType.Placement : MatchType.Match;
 
         this.loading = false;
-    }
-
-    @Watch('$route')
-    watchRoute(to, from) {
-        this.fetchData();
-    }
-
-    updateSeasonId(seasonId) {
-        this.$router.replace({
-            name: this.$router.currentRoute.name,
-            params: {
-                seasonId: seasonId
-            }
-        });
     }
 
     save(ev: Event) {
@@ -87,16 +74,21 @@ export default class PageMatchAdd extends Vue {
         }
     }
 
-    savePlacement() {
+    async savePlacement() {
         if (this.validatePlacement()) {
-            this.match.time = +(new Date());
-            this.match.save();
-            this.$router.push({
-                name: 'placement',
-                params: {
-                    seasonId: this.seasonId.toString()
-                }
-            });
+            if (!this.match.time) {
+                this.match.time = Date.now();
+            }
+            await this.match.save();
+            const seasonMode = await SeasonController.getMode(this.match.seasonId);
+            this.$store.commit('seasonMode', seasonMode);
+            this.$router.push('/');
+        }
+        else {
+            const label = <HTMLElement>this.$el.querySelector('.resultsLabel');
+            if (label) {
+                label.focus();
+            }
         }
     }
 
@@ -107,22 +99,33 @@ export default class PageMatchAdd extends Vue {
 
     async saveMatch() {
         if (this.validateMatch()) {
-            const lastMatch = await MatchController.latestSeasonMatchRating(this.seasonId);
-            this.match.time = +(new Date());
+            const lastMatchRating = await MatchController.latestSeasonMatchRating(this.seasonId);
+            const lastMatch = await MatchController.latestSeasonMatch(this.seasonId, this.match.type);
+            if (!this.match.time) {
+                this.match.time = Date.now();
+            }
             this.match.comment = this.comment;
-            if (this.match.rating <= 500) {
-                this.match.result = this.match.result || MatchController.ratingToResult(this.match.rating, lastMatch);
+            if (this.match.rating <= 500 && !this.match.result) {
+                this.match.result = this.match.result || MatchController.ratingToResult(this.match.rating, lastMatchRating);
+            }
+            else if (!this.match.result) {
+                this.match.result = MatchController.ratingToResult(this.match.rating, lastMatchRating);
+            }
+            if (lastMatch && this.match.result === lastMatch.result) {
+                this.match.streak = lastMatch.streak + 1;
             }
             else {
-                this.match.result = MatchController.ratingToResult(this.match.rating, lastMatch);
+                this.match.streak = 1;
             }
-            this.match.save();
-            this.$router.push({
-                name: 'competitive',
-                params: {
-                    seasonId: this.seasonId.toString()
-                }
-            });
+            await this.match.save();
+            this.$store.dispatch('updateRating', this.match.rating);
+            this.$router.push('/');
+        }
+        else {
+            const rating = <HTMLElement>this.$el.querySelector('.addMatchRating');
+            if (rating) {
+                rating.focus();
+            }
         }
     }
 

@@ -50,6 +50,11 @@ export class CompwerstatsDatabase extends Dexie {
             rank: '++id, &title, iconPath, ratingMin, ratingMax',
             season: '++id, name, placementRating'
         });
+
+        this.version(2).stores({
+            season: '++id, name, placementRating, archived',
+            match: '++id, [seasonId+type], mapId, &time, *character, result, comment, rating, groupsize, redRating, blueRating, steak',
+        });
     }
 
     private setupClassMap() {
@@ -76,9 +81,6 @@ export class CompwerstatsDatabase extends Dexie {
             Rank.create('Diamond', 3000, 3499, './static/img/rank_diamond.png').save();
             Rank.create('Master', 3500, 3999, './static/img/rank_master.png').save();
             Rank.create('Grandmaster', 4000, 5000, './static/img/rank_grandmaster.png').save();
-
-            Season.create('Season 6').save();
-            Season.create('Season 7').save();
 
             CommentSuggestion.create('Good communication').save();
             CommentSuggestion.create('Great teamwork').save();
@@ -122,6 +124,7 @@ export class CompwerstatsDatabase extends Dexie {
             Character.create(ctSupport, 'Ana', '', '').save();
             Character.create(ctSupport, 'Lúcio', '', '').save();
             Character.create(ctSupport, 'Mercy', '', '').save();
+            // Character.create(ctSupport, 'Moira', '', '').save();
             Character.create(ctSupport, 'Symmetra', '', '').save();
             Character.create(ctSupport, 'Zenyatta', '', '').save();
 
@@ -141,10 +144,11 @@ export class CompwerstatsDatabase extends Dexie {
             OverwatchMap.create(mtControl, 'Oasis', 'https://bnetcmsus-a.akamaihd.net/cms/page_media/mn/MNNHA2I8CTIG1497480960107.jpg').save();
 
             OverwatchMap.create(mtEscort, 'Dorado', 'https://bnetcmsus-a.akamaihd.net/cms/page_media/fn/FNBIVXUVWF6X1497480004798.jpg').save();
+            OverwatchMap.create(mtEscort, 'Junkertown', 'https://bnetcmsus-a.akamaihd.net/cms/page_media/3EDBV89EVDZG1504724220173.jpg').save();
             OverwatchMap.create(mtEscort, 'Route 66', 'https://bnetcmsus-a.akamaihd.net/cms/page_media/hj/HJDM6SIEAIGO1497481024426.jpg').save();
             OverwatchMap.create(mtEscort, 'Watchpoint: Gibraltar', 'https://bnetcmsus-a.akamaihd.net/cms/page_media/x0/X0WORICQ092M1497480184004.jpg').save();
         }).then(() => {
-            CharacterController.getExternalContent();
+            CharacterController.getAllExternalContent();
             OverwatchMapController.getExternalContent();
         }, (reason) => {
             console.error(reason);

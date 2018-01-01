@@ -2,14 +2,15 @@
     // We should not use this feature in scss, but sometimes it is easier
 
     fieldset {
-        border: 0 solid red;
-        background-color: #fff;
+        border-width: 0;
         padding: 10px;
-        box-shadow: 0 3px 2px rgba(0, 10, 20, 0.5);
     }
     label[for] {
         font-family: BigNoodle;
-        font-size: 30px;
+        font-size: 20px;
+    }
+    .field-wrap {
+        padding: 10px;
     }
     .error .errors {
         color: firebrick;
@@ -25,13 +26,12 @@
         display: block;
         box-sizing: border-box;
         width: 100%;
-        padding: 4px;
+        padding: 5px;
         font-size: 20px;
-        font-family: Futura;
-        border: 2px solid #fff;
-        box-shadow: 
-            0 0 3px rgba(10, 20, 30, 0.4),
-            inset 0 20px 40px -10px rgba(99, 75, 236, 0.2);
+        font-family: Roboto, sans-serif;
+        border: 2px solid var(--color-border-form-button);
+        background-color: var(--color-background-form-input);
+        color: var(--color-foreground-form-input);
     }
     input.form-control[type="text"],
     input.form-control[type="number"],
@@ -46,7 +46,7 @@
         -webkit-appearance: none;
         text-decoration: none;
         text-transform: uppercase;
-        font-family: Futura, sans-serif;
+        font-family: Roboto, sans-serif;
         padding: 10px 20px;
         font-size: 12px;
         line-height: 1;
@@ -57,15 +57,8 @@
         background: var(--color-background-button);
         color: var(--color-foreground-button);
         cursor: pointer;
-        border-radius: 1px;
-        -webkit-app-region: no-drag;
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 1);
-        transition: background-color 200ms, box-shadow 200ms;
     }
     .field-submit [type="submit"]:hover {
-        animation: buttonHover 500ms infinite alternate ease-in-out;
-        animation-delay: 200ms;
-        box-shadow: 0 0 0 2px rgba(255, 255, 255, 1);
         background-color: rgb(16, 88, 145);
     }
     .radio-list {
@@ -73,8 +66,18 @@
 
         label {
             font-size: 14px;
-            text-transform: uppercase;
             display: block;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--color-background-form-button-hover);
+            }
+            &:focus {
+                background-color: var(--color-background-form-button-focus);
+            }
+            &:active {
+                background-color: var(--color-background-form-button-active);
+            }
         }
     }
     .field-checklist .field-wrap {
@@ -84,7 +87,18 @@
 
         label {
             font-size: 14px;
-            text-transform: uppercase;
+            display: block;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--color-background-form-button-hover);
+            }
+            &:focus {
+                background-color: var(--color-background-form-button-focus);
+            }
+            &:active {
+                background-color: var(--color-background-form-button-active);
+            }
         }
     }
     .form-group {
@@ -100,9 +114,10 @@
         background-position: 50% 50%;
     }
     .hint {
-        padding: 5px;
+        padding: 0 10px 10px;
+        margin-top: -7px;
         font-size: 14px;
-        font-family: Futura;
+        font-family: Roboto, sans-serif;
         color: #747474;
     }
     .required > label:after {

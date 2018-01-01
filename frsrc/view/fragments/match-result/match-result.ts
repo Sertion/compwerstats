@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
 
-import { MatchResult } from '../../../match';
+import { MatchResult } from '../../../interface';
 
 import './match-result.scss';
 

@@ -21,17 +21,22 @@ import LoadingSpinner from '../../fragments/loading-spinner';
 export default class PageStats extends Vue {
     loading: boolean = true;
     stats: object;
-    seasonId: number;
     models: object;
+
+    seasonWatcher: Function;
 
     created() {
         this.fetchStats();
+
+        
+        this.seasonWatcher = this.$store.watch(this.$store.getters.getSeasonId, () => {
+            this.fetchStats()
+        });
     }
     
     async fetchStats() {
-        this.seasonId = parseInt(this.$route.params.seasonId, 10);
         this.loading = true;
-        const stats = await MatchController.calculateStatistics(this.seasonId);
+        const stats = await MatchController.calculateStatistics(this.$store.state.seasonId);
         const processedStats = {
             totalNumberOfMatches: stats.totalNumberOfMatches,
             characterTypes: {},
@@ -71,17 +76,9 @@ export default class PageStats extends Vue {
         this.loading = false;
     }
 
-    @Watch('$route')
-    watchRoute(to, from) {
-        this.fetchStats();
-    }
-
-    updateSeasonId(seasonId) {
-        this.$router.replace({
-            name: this.$router.currentRoute.name,
-            params: {
-                seasonId: seasonId
-            }
-        });
+    destroyed() {
+        if (typeof this.seasonWatcher === 'function') {
+            this.seasonWatcher();
+        }
     }
 }

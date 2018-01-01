@@ -1,115 +1,168 @@
 .matchItem {
-    position: relative;
-    overflow: hidden;
-    height: 200px;
-    max-width: 650px;
-    width: 100%;
     box-sizing: border-box;
-    border-radius: 3px;
-    margin: 0 0 5px 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 64px 50px 100px 1fr 120px;
+    grid-template-rows: 30px 14px auto auto;
+    grid-template-areas:
+        "icon mapname mapname mapname result"
+        "icon time time heroes result"
+        "icon streak teamratings heroes result"
+        "details details details details details";
+    background-color: var(--color-background-label);
+    border-bottom: 2px solid var(--color-result-unknown);
+    // cursor: pointer;
+}
+.matchItem:hover {
+    // background-color: var(--color-background-label-hover);
+}
+
+.matchItem--win {
+    border-color: var(--color-result-win);
+}
+.matchItem--draw {
+    border-color: var(--color-result-draw)
+}
+.matchItem--loss {
+    border-color: var(--color-result-loss)
+}
+
+.matchItem__details {
+    grid-area: details;
+    height: 0;
+    overflow: hidden;
+    display: grid;
+}
+.matchItem--details .matchItem__details {
+    height: auto;
 }
 
 .matchItem__map {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 110%;
-    height: auto;
-    filter: blur(3px) brightness(0.75);
-    transform: translate(-50%, -50%);
-}
-.matchItem__content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    grid-area: icon;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .matchItem__mapName {
-    font-size: 50px;
-    padding: 5px 0 0 10px;
+    grid-area: mapname;
+    font-size: 30px;
     color: #fff;
-    text-shadow: 0 2px 3px rgba(10, 20, 30, 0.5);
     font-family: BigNoodle;
     line-height: 1;
+    padding-left: 10px;
 }
 .matchItem__time {
-    padding: 2px 0 0 20px;
+    grid-area: time;
     color: #fff;
-    text-shadow: 0 2px 3px rgba(10, 20, 30, 0.5);
     font-size: 14px;
+    padding: 2px 10px 0;
+    line-height: 1;
+}
+.matchItem__streak {
+    grid-area: streak;
+    padding: 2px 2px 0 10px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+}
+.matchItem__streak:before {
+    padding-right: 5px;
+}
+.matchItem--win .matchItem__streak {
+    color: var(--color-result-win);
+}
+.matchItem--win .matchItem__streak:before {
+    content: "▲";
+}
+.matchItem--draw .matchItem__streak {
+    color: var(--color-result-draw);
+}
+.matchItem--draw .matchItem__streak:before {
+    content: "►";
+}
+.matchItem--loss .matchItem__streak {
+    color: var(--color-result-loss);
+}
+.matchItem--loss .matchItem__streak:before {
+    content: "▼";
+}
+
+.matchItemTeamRating {
+    grid-area: teamratings;
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    font-size: 14px;
+    padding: 2px 10px 0 2px;
+    line-height: 17px;
+}
+.matchItemTeamRating__label {
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: right;
+    padding: 2px 2px 0 0;
+}
+.matchItemTeamRating__value {
+    min-width: 2.5ex;
+    line-height: 17px;
+    font-weight: bold;
+    text-align: right;
+}
+.matchItemTeamRating__value--blueAdvantage {
+    color: var(--color-team-blue);
+}
+.matchItemTeamRating__value--redAdvantage {
+    color: var(--color-team-red);
 }
 
 .matchItem__rating {
-    position: absolute;
-    right: 10px;
-    top: 10px;
+    grid-area: result;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .matchItem__ratingIcon {
-    position: absolute;
-    z-index: 1;
-    left: 0;
-    top: -5px;
     height: auto;
     width: auto;
-    max-width: 60px;
-    max-height: 70px
+    max-width: 50px;
+    max-height: 64px;
+    margin-left: 10px;
 }
 .matchItem__ratingLabel {
-    position: relative;
-    padding: 0 0 0 60px;
-    font-size: 50px;
+    font-size: 40px;
     font-family: kOverwatch;
-    color: #fff;
-    text-shadow:
-        1px 1px 0 rgb(10, 20, 30),
-        -1px 1px 0 rgb(10, 20, 30),
-        1px -1px 0 rgb(10, 20, 30),
-        -1px -1px 0 rgb(10, 20, 30);
+    color: var(--color-result-unkown);
+    display: inline;
 }
-.matchItem__ratingLabel:before {
-    content: "";
-    position: absolute;
-    top: 12px;
-    right: 7px;
-    bottom: 12px;
-    left: 67px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 10px;
-    filter: blur(7px);
+.matchItem--win .matchItem__ratingLabel {
+    color: var(--color-result-win);
 }
-.matchItem__ratingLabelText {
-    position: relative;
-    z-index: 1;
+.matchItem--draw .matchItem__ratingLabel {
+    color: var(--color-result-draw)
 }
-.matchItem--win .matchItem__ratingLabelText {
-    color: #88b60b;
-}
-.matchItem--draw .matchItem__ratingLabelText {
-    color: #cbc728;
-}
-.matchItem--loss .matchItem__ratingLabelText {
-    color: #9d2b49;
+.matchItem--loss .matchItem__ratingLabel {
+    color: var(--color-result-loss)
 }
 
 .matchItem__characters {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    left: 5px;
+    grid-area: heroes;
     display: flex;
-    justify-content: flex-end;
-    height: 60px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .matchItem__character {
-    border: 1px solid #fff;
-    width: 54px;
-    background-position: 50% 50%, 0 0;
-    background-size: cover, 0 0;
+    width: 32px;
+    height: 32px;
+    background-position: 50% 50%;
+    background-size: cover;
     background-repeat: no-repeat;
-    border-radius: 2px;
-    box-shadow: 0 2px 3px rgba(10, 20, 30, 0.4);
-    margin: 0 0 0 5px;
-    background-color: rgba(0, 0, 0, 0.75);
+    margin: 0 0 2px 2px;
+    border: 1px solid var(--color-foreground-label);
+    border-radius: 10px;
 }

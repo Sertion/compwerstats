@@ -10,6 +10,11 @@ import ButtonBack from '../../button/back';
     template: require('./subpage.html'),
     components: {
         ButtonBack
+    },
+    computed: {
+        noHead() {
+            return !this.$slots.head;
+        }
     }
 })
 export default class Subpage extends Vue {

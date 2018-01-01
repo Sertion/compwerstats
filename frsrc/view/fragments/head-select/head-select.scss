@@ -6,7 +6,7 @@
     line-height: 1;
     color: #fff;
     overflow: hidden;
-    background: rgba(63, 65, 130, 0.8);
+    background-color: var(--color-background-form-button);
 }
 
 .headSelectItem {
@@ -16,21 +16,10 @@
     min-width: 25px;
     text-align: center;
     cursor: pointer;
-    text-shadow: 0 0 1px rgba(195, 196, 227, 0.53);
-    transition: text-shadow 200ms;
 }
 .headSelectItem:hover {
-    text-shadow: 0 1px 1px rgba(195, 196, 227, 0.53);
+    background-color: var(--color-background-form-button-hover);
 }
 .headSelectItem.is-selected {
-    background: rgba(63, 65, 130, 0.8);
-}
-
-@media (min-height: 720px) and (min-width: 1000px) {
-    .headSelect {
-        font-size: 16px;
-    }
-    .headSelectItem {
-        padding: 10px 15px;
-    }
+    background-color: var(--color-background-form-button-active);
 }

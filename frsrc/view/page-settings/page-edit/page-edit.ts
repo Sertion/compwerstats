@@ -64,7 +64,7 @@ export default class PageSettingsEdit extends Vue {
 
     remove(model) {
         // TODO: Replace with a cooler confirm for cooler people
-        const yes = confirm('Permanently remove this item?');
+        const yes = confirm('Permanently remove this item?\nThings can and probably will break if you remove things that are used in other places.');
 
         if (yes) {
             model.delete();

@@ -45,7 +45,7 @@ export class MainWindow {
             width: windowState.width,
             x: windowState.x,
             y: windowState.y,
-            minHeight: 400,
+            minHeight: 450,
             minWidth: 600,
             frame: false,
             title: "Compwerstats",

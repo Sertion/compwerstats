@@ -1,0 +1,62 @@
+.pageCreateSeason {
+    max-width: 700px;
+    padding: 0 25px;
+    margin: 0 auto;
+}
+.pageCreateSeason h1 {
+    font-size: 36px;
+    font-weight: normal;
+    margin: 0;
+    padding: 1em 0 .75em;
+    text-align: center;
+    font-family: BigNoodle;
+    color: var(--color-foreground-chrome);
+}
+.pageCreateSeason p {
+    font-size: 16px;
+    font-family: Roboto;
+    color: var(--color-foreground-chrome);
+}
+.createSeason {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+    "number startsr"
+    "save save";
+}
+.createSeason__formItem--number {
+    grid-area: number;
+}
+.createSeason__formItem--startsr {
+    grid-area: startsr;
+}
+.createSeason__fromItem--save {
+    grid-area: save;
+    align-self: flex-end;
+}
+.createSeason__label {
+    font-size: 20px;
+    font-family: kOverwatch;
+    color: var(--color-foreground-chrome);
+}
+.createSeason__field {
+    font-size: 20px;
+    max-width: 230px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    -moz-appearance: none;
+    display: block;
+    margin: 10px auto;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif;
+    border: 2px solid var(--color-border-form-input);
+    background-color: var(--color-background-form-input);
+    color: var(--color-foreground-form-input);
+}
+.createSeason__description {
+    font-size: 14px;
+    text-align: center;
+    color: var(--color-foreground-chrome);
+}

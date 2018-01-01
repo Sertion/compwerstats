@@ -17,16 +17,16 @@ export class CharacterController {
         return table.toArray();
     }
 
-    static async getExternalContent(): Promise<void> {
+    static async getExternalContent(characterId: number, force: boolean = false): Promise<void> {
         const database = CompwerstatsDatabase.getInstance();
         const table = database.character;
+        const character = await Character.load(characterId);
         const dataUrlPrefix = 'data:image/png;base64,';
         const generateCharacterUrlByType = (char: Character, fileName: string): string => {
             return `https://blzgdapipro-a.akamaihd.net/hero/${ char.getUrlSafeName() }/${ fileName }`
         };
 
         database.transaction('rw', table, async () => {
-            const iconlessCharacters = await table.where('iconPath').equals('').toArray();
             const types = [{
                     name: 'icon-portrait.png',
                     default: './static/img/temp-icon-portrait.png',
@@ -37,13 +37,13 @@ export class CharacterController {
                     column: 'imagePath'
                 }];
 
-            iconlessCharacters.forEach((character: Character) => {
-                types.forEach((icon) => {
+            types.forEach((icon) => {
+                if (force || !character[icon.column]) {
                     fetch(generateCharacterUrlByType(character, icon.name))
                         .then((response) => response.blob())
                         .then((blob) => {
                             const reader = new FileReader();
-    
+
                             reader.readAsDataURL(blob);
                             reader.onloadend = () => {
                                 const dataUrl = <string>reader.result;
@@ -56,8 +56,18 @@ export class CharacterController {
                                 character.save();
                             }
                         });
-                })
+                }
             });
+        });
+    }
+
+    static async getAllExternalContent() {
+        const database = CompwerstatsDatabase.getInstance();
+        const table = database.character;
+        const iconlessCharacters = await table.where('iconPath').equals('').toArray();
+
+        iconlessCharacters.forEach((character) => {
+            CharacterController.getExternalContent(character.id);
         });
     }
 
@@ -108,8 +118,8 @@ export class CharacterController {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
                     onSubmit: async (model) => {
-                        await model.save();
-                        CharacterController.getExternalContent();
+                        const id = await model.save();
+                        CharacterController.getExternalContent(id);
                         if (typeof saveCallback === 'function') {
                             saveCallback();
                         }

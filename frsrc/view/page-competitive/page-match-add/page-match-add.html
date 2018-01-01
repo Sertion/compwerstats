@@ -1,33 +1,52 @@
 <div class="pageCompetitive">
-    <subpage back="front">
+    <subpage back="competitive">
         <button-base @clicked="skipPlacements" type="head" slot="head" v-if="type === 'placement'">Skip placements</button-base>
-        <season-select :selected="seasonId" @input="updateSeasonId" slot="head"></season-select>
         <loading-spinner v-if="loading"></loading-spinner>
-        <form action="/" @submit.prevent="save" v-if="!loading">
-            <h2 v-if="type === 'competitive'" class="addMatchHeader">New rating</h2>
-            <div class="rating" v-if="type === 'competitive'">
-                <input type="number" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.rating" class="addMatchRating">
+        <form action="/" @submit.prevent="save" v-if="!loading" class="addMatch">
+            <div v-if="type === 'match'" class="addMatchGroup addMatchGroup--rating">
+                <h2 class="addMatch__header">New rating</h2>
+                <div class="addMatch__rating">
+                    <input type="number" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.rating" class="addMatchRating">
+                </div>
             </div>
-            <h2 v-if="type === 'placement' || match.rating <= 500" class="addMatchHeader">Match result</h2>
-            <match-result-selector v-if="type === 'placement' || match.rating <= 500" v-model="match.result"></match-result-selector>
-            <h2 class="addMatchHeader">Select map</h2>
-            <map-list v-model="match.overwatchMapId"></map-list>
-            <h2 class="addMatchHeader">Select played characters</h2>
-            <character-list v-model="match.character"></character-list>
-            <h2 class="addMatchHeader">Group size</h2>
-            <group-size v-model="match.groupSize"></group-size>
-            <h2 class="addMatchHeader" v-if="type === 'competitive'">Team Skill Rating</h2>
-            <div class="addMatchTeamRating" v-if="type === 'competitive'">
-                <input type="number" title="Your team" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.blueRating" class="addMatchTeamRatingField addMatchTeamRatingField--blue">
-                <input type="number" title="Opposing team" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.redRating" class="addMatchTeamRatingField addMatchTeamRatingField--red">
+            <div v-if="type === 'placement' || (match.rating && match.rating <= 500)" class="addMatchGroup addMatchGroup--result">
+                <h2 class="addMatch__header">Match result</h2>
+                <match-result-selector v-model="match.result"></match-result-selector>
             </div>
-            <h2 class="addMatchHeader">Comment</h2>
-            <textarea class="addMatchComment" v-model="comment"></textarea>
-            <div class="addMatchCommentSuggestions" v-if="comments">
-                <div class="addMatchCommentSuggestions__label">Suggestions:</div>
-                <a v-for="comment in comments" href="#" @click.prevent="addToComment(comment.content)" class="addMatchCommentSuggestions__text">{{ comment.content }}</a>
+            <div class="addMatchGroup addMatchGroup--map">
+                <h2 class="addMatch__header">Select map</h2>
+                <map-list v-model="match.overwatchMapId"></map-list>
             </div>
-            <button-base type="save">Save</button-base>
+            <div class="addMatchGroup addMatchGroup--character">
+                <h2 class="addMatch__header">Select played characters</h2>
+                <character-list v-model="match.character"></character-list>
+            </div>
+            <div class="addMatchGroup addMatchGroup--groupSize">
+                <h2 class="addMatch__header">Group size</h2>
+                <group-size v-model="match.groupSize"></group-size>
+            </div>
+            <div class="addMatchGroup addMatchGroup--teamRating">
+                <h2 class="addMatch__header" v-if="type === 'match'">Team Skill Rating</h2>
+                <div class="addMatch__teamRating" v-if="type === 'match'">
+                    <input type="number" title="Your team" placeholder="Your team" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.blueRating" class="addMatchTeamRatingField addMatchTeamRatingField--blue">
+                    <input type="number" title="Opposing team" placeholder="Opposing team" name="rating" max="5000" min="0" maxlength="4" v-model.number="match.redRating" class="addMatchTeamRatingField addMatchTeamRatingField--red">
+                </div>
+            </div>
+            <div class="addMatchGroup addMatchGroup--comment">
+                <h2 class="addMatch__header">Comment</h2>
+                <div class="addMatch__comment">
+                    <textarea class="addMatchComment" v-model="comment"></textarea>
+                </div>
+                <div class="addMatchCommentSuggestions" v-if="comments">
+                    <div class="addMatchCommentSuggestions__label">Suggestions:</div>
+                    <div class="addMatchCommentSuggestions__values">
+                        <a v-for="comment in comments" href="#" @click.prevent="addToComment(comment.content)" class="addMatchCommentSuggestions__text">{{ comment.content }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="addMatchGroup addMatchGroup--save">
+                <button-base type="save">Save</button-base>
+            </div>
         </form>
     </subpage>
 </div>

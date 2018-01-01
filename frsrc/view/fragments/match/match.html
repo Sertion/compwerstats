@@ -1,24 +1,34 @@
-<div :class="'matchItem matchItem--' + match.result">
-    <img class="matchItem__map" :src="currentMap.imagePath">
-    <div class="matchItem__content">
-        <div class="matchItem__mapName">{{ currentMap.name }}</div>
-        <div class="matchItem__time">{{ match.time | moment('YYYY-MM-DD HH:mm') }}</div>
+<div :class="`matchItem matchItem--${match.result} ${showingDetails ? 'matchItem--details' : ''}`" @click="showingDetails = showingDetails">
+    <loading-spinner v-if="loading"></loading-spinner>
+    <template v-else>
+        <div class="matchItem__map" :style="toBackground(map.imagePath)"></div>
+        <div class="matchItem__mapName">{{ map.name }}</div>
+        <div class="matchItem__time">{{ match.time / 1000 | moment('YYYY-MM-DD HH:mm') }}</div>
+        <div class="matchItem__streak">{{ match.streak }}</div>
+        <div class="matchItemTeamRating" title="Advantaged team and advantage size" v-if="match.blueRating && match.redRating">
+            <div class="matchItemTeamRating__label" title="Advantage">Adv:</div>
+            <template v-if="match.blueRating === match.redRating">
+                <div class="matchItemTeamRating__value">0</div>
+            </template>
+            <template v-if="match.blueRating > match.redRating">
+                <div class="matchItemTeamRating__value matchItemTeamRating__value--blueAdvantage">{{ match.blueRating - match.redRating }}</div>
+            </template>
+            <template v-if="match.blueRating < match.redRating">
+                <div class="matchItemTeamRating__value matchItemTeamRating__value--redAdvantage">{{ match.redRating - match.blueRating }}</div>
+            </template>
+        </div>
         <div class="matchItem__rating">
-            <img class="matchItem__ratingIcon" :src="currentRank.iconPath" :title="currentRank.title" v-if="match.rating">
-            <div class="matchItem__ratingLabel" v-if="match.rating">
-                <div class="matchItem__ratingLabelText">{{ match.rating }}</div>
-            </div>
-            <div class="matchItem__ratingLabel" v-else>
-                <div class="matchItem__ratingLabelText">{{ match.result }}</div>
-            </div>
+            <img class="matchItem__ratingIcon" :src="rank.iconPath" :title="rank.title" v-if="match.rating">
+            <div class="matchItem__ratingLabel" v-if="match.rating">{{ match.rating }}</div>
+            <div class="matchItem__ratingLabel" v-else>{{ match.result }}</div>
         </div>
         <div class="matchItem__characters">
             <div
                 class="matchItem__character"
-                v-for="character in usedCharacters"
+                v-for="character in characters"
                 :title="character.name"
-                :style="toBackground(character.iconPath, character.imagePath)">
+                :style="toBackground(character.iconPath)">
             </div>
         </div>
-    </div>
+    </template>
 </div>

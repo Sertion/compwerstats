@@ -1,24 +1,28 @@
 .chrome {
     display: grid;
     grid-template-rows: 40px auto;
+    grid-template-columns: 60px auto;
+    grid-template-areas: "head head" "sidebar main";
     height: 100vh;
+}
+.chrome.chrome--sidebarOpen {
+    grid-template-columns: 200px auto;
 }
 .chrome__head {
     -webkit-app-region: drag;
-    background: #3f407f url('../../../../static/img/chrome-head-bg.jpg') 0 0 no-repeat;
-    background-size: cover;
+    grid-area: head;
+    background-color: var(--color-background-chrome);
     display: flex;
-    color: #ffffff;
-    justify-content: space-between;
+    color: var(--color-foreground-chrome);
+    justify-content: flex-end;
     align-items: stretch;
-    border-bottom: 1px solid #797897;
+    line-height: 1;
 }
 .chrome__title {
-    padding: 5px;
-    padding-right: 0;
+    padding: 5px 0 5px 5px;
     font-size: 30px;
-    line-height: 1;
     font-family: BigNoodle;
+    flex-grow: 2;
 }
 .chrome__title:before {
     content: "";
@@ -31,13 +35,6 @@
     margin-right: 10px;
     float: left;
 }
-.chrome__update {
-    flex-grow: 10;
-    padding: 5px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-}
 .chrome__rating {
     line-height: 40px;
     padding-right: 20px;
@@ -48,111 +45,80 @@
     width: auto;
 }
 .chrome__ratingLabel {
-    color: #fff;
+    color: var(--color-foreground-chrome);
     font-size: 30px;
     font-family: kOverwatch;
-}
-.chrome__quickAction {
-    padding: 5px;
-    padding-right: 20px;
-    font-family: Futura;
-    font-size: 14px;
 }
 .chrome__windowAction {
     white-space: nowrap;
 }
+.chrome__sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background-chrome);
+}
+.chrome__body {
+    grid-area: main;
+}
 
-.updateButton {
-    cursor: pointer;
-    padding: 5px 10px;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    background-color: #e02200;
-    color: #fff;
-    text-transform: uppercase;
+.sidebarLink {
     text-decoration: none;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 200ms;
-    max-width: 350px;
-    border-radius: 1px;
-    -webkit-app-region: no-drag;
-    box-shadow: 0 0 0 0 white;
-    animation: updateButton 10s infinite ease-in-out;
-    transition: background-color 200ms, box-shadow 200ms;
+    display: block;
+    padding: 10px 5px;
+    color: var(--color-foreground-chrome);
 }
-.updateButton:hover {
-    animation: updateButtonHover 500ms infinite alternate ease-in-out;
-    animation-delay: 200ms;
-    box-shadow: 0 0 0 2px white;
-    background-color: #f25824;
+.sidebarLink.router-link-active {
+    color: var(--color-foreground-chrome-active);
 }
-.updateButton--avalible {
-    pointer-events: all;
-    -webkit-app-region: no-drag;
-    opacity: 1;
+.sidebarLink--update {
+    margin-top: auto;
+    display: none;
+    color: var(--color-foreground-update);
+    background-color: var(--color-background-update);
 }
-
-@keyframes updateButton {
-    0% {
-        transform: scale(1);
-    }
-    96% {
-        transform: scale(1);
-    }
-    98% {
-        transform: scale(1.04);
-    }
-    100% {
-        transform: scale(1);
-    }
+.sidebarLink--updateAvalible {
+    display: block;
 }
-@keyframes updateButtonHover {
-    from {
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 1);
-    }
-    to {
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, .75);
-    }
+.sidebarLink:hover {
+    background-color: var(--color-background-chrome-hover);
 }
-
-@media (max-width: 675px) {
-    .updateButton__more {
-        display: none;
-    }
+.sidebarLink--update:hover {
+    color: var(--color-foreground-update-hover);
+    background-color: var(--color-background-update-hover);
 }
-
-@media (min-height: 720px) and (min-width: 1000px) {
-    .chrome {
-        display: grid;
-        grid-template-rows: 60px auto;
-    }
-    .chrome__title {
-        font-size: 50px;
-    }
-    .chrome__title:before {
-        height: 50px;
-        width: 50px;
-    }
-    .chrome__update {
-        flex-grow: 10;
-        padding: 5px 30px;
-    }
-    .chrome__rating {
-        line-height: 60px;
-    }
-    .chrome__ratingIcon {
-        height: 60px;
-        width: auto;
-    }
-    .chrome__ratingLabel {
-        font-size: 40px;
-    }
-    .updateButton {
-        font-size: 20px;
-        padding: 10px 20px;
-        margin: 5px;
-        line-height: 20px;
-    }
+.sidebarLink--addMatch {
+    margin-top: auto;
+}
+.sidebarLink--updateAvalible + .sidebarLink--addMatch,
+.sidebarInfo--season + .sidebarLink--updateAvalible {
+    margin-top: 0;
+}
+.sidebarLink__icon {
+    height: 30px;
+    width: 30px;
+    margin: 0 auto 5px;
+    display: block;
+}
+.sidebarLink__label {
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    font-size: 10px;
+}
+.sidebarInfo {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 10px 5px;
+    text-align: center;
+    color: var(--color-foreground-chrome);
+}
+.sidebarInfo__label {
+    text-transform: uppercase;
+    font-size: 10px;
+}
+.sidebarInfo__value {
+    font-size: 30px;
+    font-family: kOverwatch;
 }

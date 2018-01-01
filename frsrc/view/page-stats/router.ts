@@ -2,7 +2,7 @@ import PageStats from './page-main';
 
 export default [
     {
-        path: '/stats/:seasonId',
+        path: '/stats',
         name: 'stats',
         component: PageStats
     }

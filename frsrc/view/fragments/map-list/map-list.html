@@ -1,6 +1,7 @@
 <div class="mapList" ref="maps">
-    <button class="map" href="#" v-if="list" v-for="item in list" :style="item.background" @click="clickHandler" :data-id="item.map.id">
-        <img class="map__typeIcon" :title="item.type.name" :src="item.type.getIcon()" />
+    <a class="map" href="#" v-if="list" v-for="item in list" @click="clickHandler" :data-id="item.map.id">
         <div class="map__label">{{ item.map.getName() }}</div>
-    </button>
+        <img class="map__typeIcon" :title="item.type.name" :src="item.type.getIcon()" />
+        <div :style="`background-image: url(${ item.map.getIcon() })`" class="map__image"></div>
+    </a>
 </div>

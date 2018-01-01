@@ -5,7 +5,7 @@
     width: 120px;
     margin: 7px 7px 7px 15px;
     line-height: 1;
-    font-family: Futura;
+    font-family: Roboto, sans-serif;
     color: #fff;
     background-color: rgba(63, 65, 130, 0.8);
     background-image: url('../../../../static/img/select.svg');
@@ -29,20 +29,4 @@
 }
 .seasonSelect__item:hover {
     background: rgba(63, 65, 130, 0.8);
-}
-
-@media (min-height: 720px) and (min-width: 1000px) {
-    .seasonSelect {
-        font-size: 16px;
-        width: 190px;
-        padding: 1px 30px 0 10px;
-        background-size: 12px;
-        background-position: calc(100% - 10px) 50%;
-    }
-    .seasonSelect:hover {
-        background-position: calc(100% - 10px) calc(50% - 2px);
-    }
-    .seasonSelect:active {
-        background-position: calc(100% - 10px) calc(50% + 2px);
-    }
 }

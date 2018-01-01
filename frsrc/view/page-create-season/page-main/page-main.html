@@ -1,0 +1,18 @@
+<div class="pageCreateSeason">
+    <h1>Welcome to Compwerstats!</h1>
+    <p>Getting started requires that you create a season that you can add all your matches to. If you are in the middle of a season you can fill in your <em>starting Skill Rating</em> in the <em>Starting SR</em>-field.</p>
+    <form action="/" method="GET" class="createSeason" @submit.prevent="saveSeason">
+        <label class="createSeason__formItem createSeason__formItem--number">
+            <div class="createSeason__label">Season Number</div>
+            <input class="createSeason__field" v-model="season.name" type="number" min="1" max="9999" maxlength="4">
+        </label>
+        <label class="createSeason__formItem createSeason__formItem--startsr">
+            <div class="createSeason__label">Starting SR</div>
+            <input class="createSeason__field" v-model="season.placementRating" type="number" min="0" max="5000" maxlength="4">
+            <div class="createSeason__description">If you are already mid season you can put your current Skill rating here to get started.</div>
+        </label>
+        <div class="createSeason__fromItem createSeason__fromItem--save">
+            <button-base type="save">Save</button-base>
+        </div>
+    </form>
+</div>

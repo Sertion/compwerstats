@@ -2,11 +2,11 @@
     -webkit-appearance: none;
     text-decoration: none;
     text-transform: uppercase;
-    font-family: Futura, sans-serif;
+    font-family: Roboto, sans-serif;
     padding: 10px 20px;
     font-size: 12px;
     line-height: 1;
-    font-weight: bold;
+    font-weight: 900;
     display: inline-block;
     border-width: 0;
     background: var(--color-background-button);
@@ -26,7 +26,6 @@
 
 .button--quick {
     padding: 5px 10px;
-    font-weight: normal;
     font-size: 14px;
     line-height: 20px;
 }
@@ -52,20 +51,5 @@
     to {
         box-shadow: 0 0 0 3px rgba(255, 255, 255, .75);
         background-color: rgb(12, 64, 120);
-    }
-}
-
-@media (min-height: 720px) and (min-width: 1000px) {
-    .button--quick {
-        font-size: 20px;
-        padding: 10px 20px;
-        margin: 5px;
-        line-height: 20px;
-    }
-    .button--head {
-        font-size: 16px;
-        padding: 10px 20px;
-        margin: 7px;
-        line-height: 1;
     }
 }

@@ -1,48 +1,44 @@
 import { RouteConfig } from 'vue-router';
-import PageCompetitive from './page-competitive';
-import PagePlacements from './page-placements';
+
+import { SeasonMode } from '../../interface';
+
+import PageMatchList from './page-matchlist';
 import PageMatchAdd from './page-match-add';
 import PagePlacementsSr from './page-placements-sr';
 
 export default <RouteConfig[]>[
     {
-        path: '/competitive/:seasonId',
+        path: '/competitive',
         name: 'competitive',
-        component: PageCompetitive
+        component: PageMatchList
     },
     {
-        path: '/competitive/:seasonId/add',
+        path: '/competitive/add',
         name: 'competitive-add',
-        component: PageMatchAdd,
-        props: {
-            type: 'competitive'
-        }
+        component: PageMatchAdd
     },
     {
-        path: '/competitive/:seasonId/:id/edit',
+        path: '/competitive/:id/edit',
         name: 'competitive-edit',
-        component: PageCompetitive
+        component: PageMatchAdd
     },
     {
-        path: '/placement/:seasonId',
+        path: '/placement',
         name: 'placement',
-        component: PagePlacements
+        component: PageMatchList
     },
     {
-        path: '/placement/:seasonId/add',
+        path: '/placement/add',
         name: 'placement-add',
-        component: PageMatchAdd,
-        props: {
-            type: 'placement'
-        }
+        component: PageMatchAdd
     },
     {
-        path: '/placement/:seasonId/:id/edit',
+        path: '/placement/:id/edit',
         name: 'placement-edit',
-        component: PagePlacements
+        component: PageMatchAdd
     },
     {
-        path: '/placement/:seasonId/placement-sr',
+        path: '/placement/placement-sr',
         name: 'placement-sr',
         component: PagePlacementsSr
     }

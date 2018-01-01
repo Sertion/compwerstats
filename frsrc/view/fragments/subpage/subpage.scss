@@ -7,6 +7,12 @@
         "main main main";
     height: calc(100vh - 41px);
 }
+.subpage.subpage--noHead {
+    grid-template-rows: 0 auto;
+}
+.subpage.subpage--noBack {
+    grid-template-columns: 0 auto;
+}
 .subpage__back {
     display: flex;
     grid-area: back;
@@ -21,11 +27,4 @@
     grid-area: main;
     max-height: 100%;
     padding: 5px;
-}
-@media (min-height: 720px) and (min-width: 1000px) {
-    .subpage {
-        height: calc(100vh - 60px);
-        grid-template-rows: 50px auto;
-        grid-template-columns: 90px auto;
-    }
 }
