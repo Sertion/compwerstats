@@ -23,7 +23,14 @@ export class SeasonController {
         const table = database.season;
         const active = await table.toArray();
 
-        return active.filter(season => !season.archived);
+        return active.filter(season => {
+            if (typeof season.archived === 'undefined') {
+                return true;
+            }
+            else {
+                return !season.archived;
+            }
+        });
     }
 
     static async getCurrent(): Promise<Season> {
@@ -65,7 +72,7 @@ export class SeasonController {
         }
     }
 
-    static async getFormSchema(create: boolean = false, saveCallback: () => void): Promise<Object> {
+    static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
         return {
             fields: [
                 {
@@ -91,15 +98,15 @@ export class SeasonController {
                 {
                     type: 'checkbox',
                     label: 'Archive (an archived season will not be selectable in the season selector)',
-                    model: 'archive'
+                    model: 'archived'
                 },
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
                     onSubmit: async (model) => {
-                        await model.save();
+                        const id = await model.save();
                         if (typeof saveCallback === 'function') {
-                            saveCallback();
+                            saveCallback(id);
                         }
                     }
                 }

@@ -214,7 +214,7 @@ export class MatchController {
         return stats;
     }
 
-    static async getFormSchema(create: boolean = false, saveCallback: () => void): Promise<Object> {
+    static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
         const sortByName = (a, b) => {
             const nameA = a.getName();
             const nameB = b.getName();
@@ -364,10 +364,10 @@ export class MatchController {
                     validateBeforeSubmit: true,
                     buttonText: create ? 'Create' : 'Save',
                     onSubmit: async (model) => {
-                        await model.save();
+                        const id = await model.save();
                         await MatchController.recalculateStreaks(model.seasonId, model.type);
                         if (typeof saveCallback === 'function') {
-                            saveCallback();
+                            saveCallback(id);
                         }
                     }
                 }

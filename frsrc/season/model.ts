@@ -37,7 +37,7 @@ export class Season {
     }
 
     getName(): string {
-        const [name] = this.name.match(/[\d]+/);
+        const [name] = this.name.toString().match(/[\d]+/);
         return name;
     }
 }

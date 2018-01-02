@@ -12,7 +12,7 @@ export class CommentSuggestionController {
         return table.toArray();
     }
 
-    static async getFormSchema(create: boolean = false, saveCallback: () => void): Promise<Object> {
+    static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
         return {
             fields: [
                 {
@@ -29,9 +29,9 @@ export class CommentSuggestionController {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
                     onSubmit: async (model) => {
-                        await model.save();
+                        const id = await model.save();
                         if (typeof saveCallback === 'function') {
-                            saveCallback();
+                            saveCallback(id);
                         }
                     }
                 }

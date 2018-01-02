@@ -62,12 +62,18 @@ export default class PageSettingsEdit extends Vue {
         this.fetchData();
     }
 
-    remove(model) {
+    async remove(model) {
         // TODO: Replace with a cooler confirm for cooler people
         const yes = confirm('Permanently remove this item?\nThings can and probably will break if you remove things that are used in other places.');
 
         if (yes) {
             model.delete();
+            if (this.type === 'season') {
+                const currentActiveSeason = await SeasonController.getCurrent();
+                if (currentActiveSeason) {
+                    this.$store.dispatch('updateSeasonId', currentActiveSeason.id);
+                }
+            }
             this.backToList();
         }
     }
@@ -89,7 +95,13 @@ export default class PageSettingsEdit extends Vue {
 
     async fetchSchema() {
         const currentConstructor = this.getController();
-        return currentConstructor.getFormSchema(this.id === 'create', () => {
+        return currentConstructor.getFormSchema(this.id === 'create', async (createdId) => {
+            if (this.type === 'season') {
+                const currentActiveSeason = await SeasonController.getCurrent();
+                if (currentActiveSeason) {
+                    this.$store.dispatch('updateSeasonId', currentActiveSeason.id);
+                }
+            }
             this.backToList();
         });
     }

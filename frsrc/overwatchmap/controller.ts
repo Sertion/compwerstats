@@ -42,7 +42,7 @@ export class OverwatchMapController {
         });
     }
 
-    static async getFormSchema(create: boolean = false, saveCallback: () => void): Promise<Object> {
+    static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
         const mapTypes = await OverwatchMapTypeController.getAll();
 
         return {
@@ -78,10 +78,10 @@ export class OverwatchMapController {
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
-                    onSubmit: (model) => {
-                        model.save();
+                    onSubmit: async (model) => {
+                        const id = await model.save();
                         if (typeof saveCallback === 'function') {
-                            saveCallback();
+                            saveCallback(id);
                         }
                     }
                 }

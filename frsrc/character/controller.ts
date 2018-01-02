@@ -71,7 +71,7 @@ export class CharacterController {
         });
     }
 
-    static async getFormSchema(create: boolean = false, saveCallback: () => void): Promise<Object> {
+    static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
         const characterTypes = await CharacterTypeController.getAll();
 
         return {
@@ -121,7 +121,7 @@ export class CharacterController {
                         const id = await model.save();
                         CharacterController.getExternalContent(id);
                         if (typeof saveCallback === 'function') {
-                            saveCallback();
+                            saveCallback(id);
                         }
                     }
                 }
