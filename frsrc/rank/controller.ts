@@ -28,10 +28,12 @@ export class RankController {
                 else {
                     return prev;
                 }
-            });
+            }, null);
     }
 
     static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
+        const oldRanks = await RankController.getAll();
+
         return {
             fields: [
                 {
@@ -42,7 +44,13 @@ export class RankController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Rank title',
-                    validator: validators.required
+                    validator: [validators.required, (value: string): string[] => {
+                        const duplicate = oldRanks.some((rank: Rank): boolean => {
+                            return value && rank.title && rank.title.toLowerCase() === value.toLowerCase();
+                        });
+
+                        return duplicate ? ["Duplicate rank title"] : [];
+                    }]
                 },
                 {
                     type: 'image',
@@ -58,7 +66,17 @@ export class RankController {
                     label: 'Minimum rating',
                     model: 'ratingMin',
                     required: true,
-                    validator: validators.required
+                    validator: [validators.required, (value: number, schema: Object, model: Rank): string[] => {
+                        const overlap = RankController.getByRatingFromRanks(oldRanks, value);
+                        return overlap ? [`Rating overlaps with ${ overlap.getName() }`] : [];
+                    }, (value: number, schema: Object, model: Rank): string[] => {
+                        if (model.ratingMax >= model.ratingMin) {
+                            return ['Minimum rating has to be smaller than the maximum rating'];
+                        }
+                        else {
+                            return [];
+                        }
+                    }]
                 },
                 {
                     type: 'input',
@@ -66,11 +84,22 @@ export class RankController {
                     label: 'Maximum rating',
                     model: 'ratingMax',
                     required: true,
-                    validator: validators.required
+                    validator: [validators.required, (value: number, schema: Object, model: Rank): string[] => {
+                        const overlap = RankController.getByRatingFromRanks(oldRanks, value);
+                        return overlap ? [`Rating overlaps with ${ overlap.getName() }`] : [];
+                    }, (value: number, schema: Object, model: Rank): string[] => {
+                        if (model.ratingMax <= model.ratingMin) {
+                            return ['Maximum rating has to be larger than the minimum rating'];
+                        }
+                        else {
+                            return [];
+                        }
+                    }]
                 },
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
+                    validateBeforeSubmit: true,
                     onSubmit: async (model) => {
                         const id = await model.save();
                         if (typeof saveCallback === 'function') {

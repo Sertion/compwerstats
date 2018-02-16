@@ -4,26 +4,22 @@ import { Component, Watch } from 'vue-property-decorator';
 import { MatchController } from '../../../match';
 import { Character } from '../../../character';
 
-import './page-main.scss';
+import './page-maps.scss';
 
 import Subpage from '../../fragments/subpage';
-import SeasonSelect from '../../fragments/season-select';
 import LoadingSpinner from '../../fragments/loading-spinner';
 import Navigation from '../navigation';
 
 @Component({
-    template: require('./page-main.html'),
+    template: require('./page-maps.html'),
     components: {
         Subpage,
-        SeasonSelect,
         LoadingSpinner,
         Navigation
     }
 })
-export default class PageStats extends Vue {
+export default class PageMaps extends Vue {
     loading: boolean = true;
-    characters: object[];
-    maps: object[];
     stats: object;
     models: object;
 
@@ -39,13 +35,28 @@ export default class PageStats extends Vue {
     
     async fetchStats() {
         this.loading = true;
-        const stats = await MatchController.calculateStatisticsOverview(this.$store.state.seasonId);
-        const characters = await MatchController.calculateCharactersWinPercentage(this.$store.state.seasonId);
-        const maps = await MatchController.calculateMapsWinPercentage(this.$store.state.seasonId);
+        const stats = await MatchController.calculateStatistics(this.$store.state.seasonId);
+        const processedStats = {
+            totalNumberOfMatches: stats.totalNumberOfMatches,
+            mapTypes: {},
+            mapTypesStats: stats.mapType
+        };
 
-        this.characters = characters.sort((a, b) => b.winPercentage - a.winPercentage).slice(0, 4);
-        this.maps = maps.sort((a, b) => b.winPercentage - a.winPercentage).slice(0, 4);
-        this.stats = stats;
+        Object.entries(stats.map).forEach((kv: [string, object]) => {
+            const [key, wlData] = kv;
+            const map = stats.data.maps[key];
+
+            if (!map) return;
+
+            if (typeof processedStats.mapTypes[map.overwatchMapTypeId] === 'undefined') {
+                processedStats.mapTypes[map.overwatchMapTypeId] = {};
+            }
+
+            processedStats.mapTypes[map.overwatchMapTypeId][map.id] = wlData;
+        });
+
+        this.models = stats.data;
+        this.stats = processedStats;
         this.loading = false;
     }
 

@@ -38,6 +38,6 @@ export class Season {
 
     getName(): string {
         const [name] = this.name.toString().match(/[\d]+/);
-        return name;
+        return name.toString();
     }
 }

@@ -1,0 +1,50 @@
+<subpage>
+    <navigation slot="head"></navigation>
+    <loading-spinner v-if="loading"></loading-spinner>
+    <div class="coolStats" v-else>
+        <div class="statsTable">
+                <div class="statsRow statsRow--head">
+                    <div class="statsHead statsHead--label">Maps</div>
+                    <div class="statsHead statsHead--double">Played</div>
+                    <div class="statsHead statsHead--double statsHead--win">Wins</div>
+                    <div class="statsHead statsHead--double statsHead--loss">Losses</div>
+                    <div class="statsHead statsHead--double statsHead--draw">Draws</div>
+                </div>
+                <div class="statsRow statsRow--subHead">
+                    <div class="statsHead statsHead--label">&nbsp;</div>
+                    <div class="statsHead statsHead--number">#</div>
+                    <div class="statsHead statsHead--percentage">%</div>
+                    <div class="statsHead statsHead--number statsHead--win">#</div>
+                    <div class="statsHead statsHead--percentage statsHead--win">%</div>
+                    <div class="statsHead statsHead--number statsHead--loss">#</div>
+                    <div class="statsHead statsHead--percentage statsHead--loss">%</div>
+                    <div class="statsHead statsHead--number statsHead--draw">#</div>
+                    <div class="statsHead statsHead--percentage statsHead--draw">%</div>
+                </div>
+            <div v-for="(mapType, mapTypeId) in stats.mapTypes" class="statsGroups">
+                <div v-for="(mapStats, mapId) in mapType" class="statsRow">
+                    <div class="statsField statsField--label">{{ models.maps[mapId].getName() }}</div>
+                    <div class="statsField statsField--number">{{ mapStats.total }}</div>
+                    <div class="statsField statsField--percentage">{{ (mapStats.total), stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ mapStats.win }}</div>
+                    <div class="statsField statsField--percentage">{{ mapStats.win, mapStats.total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ mapStats.loss }}</div>
+                    <div class="statsField statsField--percentage">{{ mapStats.loss, mapStats.total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ mapStats.draw }}</div>
+                    <div class="statsField statsField--percentage">{{ mapStats.draw, mapStats.total | percent }} <span class="statsPercent">%</span></div>
+                </div>
+                <div class="statsRow statsRow--combined">
+                    <div class="statsField statsField--label">{{ models.mapTypes[mapTypeId].getName() }}</div>
+                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].total }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].total, stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].win }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].win, stats.mapTypesStats[mapTypeId].total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].loss }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].loss, stats.mapTypesStats[mapTypeId].total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].draw }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].draw, stats.mapTypesStats[mapTypeId].total | percent }} <span class="statsPercent">%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</subpage>

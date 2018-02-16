@@ -13,6 +13,8 @@ export class CharacterTypeController {
     }
 
     static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
+        const oldCharacterTypes = await CharacterTypeController.getAll();
+
         return {
             fields: [
                 {
@@ -23,7 +25,13 @@ export class CharacterTypeController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Character type name',
-                    validator: validators.required
+                    validator: [validators.required, (value: string): string[] => {
+                        const duplicate = oldCharacterTypes.some((characterType: CharacterType): boolean => {
+                            return value && characterType.title && characterType.title.toLowerCase() === value.toLowerCase();
+                        });
+
+                        return duplicate ? ["Duplicate character type name"] : [];
+                    }]
                 },
                 {
                     type: 'image',
@@ -44,6 +52,7 @@ export class CharacterTypeController {
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
+                    validateBeforeSubmit: true,
                     onSubmit: async (model) => {
                         const id = await model.save();
                         if (typeof saveCallback === 'function') {

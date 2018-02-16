@@ -13,6 +13,8 @@ export class OverwatchMapTypeController {
     }
 
     static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
+        const oldMapTypes = await OverwatchMapTypeController.getAll();
+
         return {
             fields: [
                 {
@@ -23,7 +25,13 @@ export class OverwatchMapTypeController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Map type title',
-                    validator: validators.required
+                    validator:  [validators.required, (value: string): string[] => {
+                        const duplicate = oldMapTypes.some((mapType: OverwatchMapType): boolean => {
+                            return value && mapType.title && mapType.title.toLowerCase() === value.toLowerCase();
+                        });
+
+                        return duplicate ? ["Duplicate map type title"] : [];
+                    }]
                 },
                 {
                     type: 'image',
@@ -36,6 +44,7 @@ export class OverwatchMapTypeController {
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
+                    validateBeforeSubmit: true,
                     onSubmit: async (model) => {
                         const id = await model.save();
                         if (typeof saveCallback === 'function') {

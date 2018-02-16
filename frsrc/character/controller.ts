@@ -73,6 +73,7 @@ export class CharacterController {
 
     static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
         const characterTypes = await CharacterTypeController.getAll();
+        const oldCharacters = await CharacterController.getAll();
 
         return {
             fields: [
@@ -84,7 +85,13 @@ export class CharacterController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Character name',
-                    validator: validators.required
+                    validator: [validators.required, (value: string): string[] => {
+                        const duplicate = oldCharacters.some((character: Character): boolean => {
+                            return value && character.name && character.name.toLowerCase() === value.toLowerCase();
+                        });
+
+                        return duplicate ? ["Duplicate character name"] : [];
+                    }]
                 },
                 {
                     type: 'radios',
@@ -103,20 +110,19 @@ export class CharacterController {
                     label: 'Character icon',
                     model: 'iconPath',
                     hideInput: true,
-                    preview: true,
-                    required: true
+                    preview: true
                 },
                 {
                     type: 'image',
                     label: 'Character portrait',
                     model: 'imagePath',
                     hideInput: true,
-                    preview: true,
-                    required: true
+                    preview: true
                 },
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
+                    validateBeforeSubmit: true,
                     onSubmit: async (model) => {
                         const id = await model.save();
                         CharacterController.getExternalContent(id);
@@ -126,6 +132,6 @@ export class CharacterController {
                     }
                 }
             ]
-        }
+        };
     }
 }

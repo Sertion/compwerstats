@@ -1,1 +1,3 @@
-export * from './page-main';
+import PageMain from './page-main';
+
+export default PageMain;

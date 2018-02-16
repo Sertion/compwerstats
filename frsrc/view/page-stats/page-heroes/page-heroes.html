@@ -1,0 +1,50 @@
+<subpage>
+    <navigation slot="head"></navigation>
+    <loading-spinner v-if="loading"></loading-spinner>
+    <div class="coolStats" v-else>
+        <div class="statsTable">
+            <div class="statsRow statsRow--head">
+                <div class="statsHead statsHead--label">Character</div>
+                <div class="statsHead statsHead--double">Played</div>
+                <div class="statsHead statsHead--double statsHead--win">Wins</div>
+                <div class="statsHead statsHead--double statsHead--loss">Losses</div>
+                <div class="statsHead statsHead--double statsHead--draw">Draws</div>
+            </div>
+            <div class="statsRow statsRow--subHead">
+                <div class="statsHead statsHead--label">&nbsp;</div>
+                <div class="statsHead statsHead--number">#</div>
+                <div class="statsHead statsHead--percentage">%</div>
+                <div class="statsHead statsHead--number statsHead--win">#</div>
+                <div class="statsHead statsHead--percentage statsHead--win">%</div>
+                <div class="statsHead statsHead--number statsHead--loss">#</div>
+                <div class="statsHead statsHead--percentage statsHead--loss">%</div>
+                <div class="statsHead statsHead--number statsHead--draw">#</div>
+                <div class="statsHead statsHead--percentage statsHead--draw">%</div>
+            </div>
+            <div v-for="(charType, charTypeId) in stats.characterTypes" class="statsGroups">
+                <div v-for="(cStats, charId) in charType" class="statsRow">
+                    <div class="statsField statsField--label">{{ models.characters[charId].getName() }}</div>
+                    <div class="statsField statsField--number">{{ cStats.total }}</div>
+                    <div class="statsField statsField--percentage">{{ cStats.total, stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ cStats.win }}</div>
+                    <div class="statsField statsField--percentage">{{ cStats.win, cStats.total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ cStats.loss }}</div>
+                    <div class="statsField statsField--percentage">{{ cStats.loss, cStats.total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ cStats.draw }}</div>
+                    <div class="statsField statsField--percentage">{{ cStats.draw, cStats.total | percent }} <span class="statsPercent">%</span></div>
+                </div>
+                <div class="statsRow statsRow--combined">
+                    <div class="statsField statsField--label">{{ models.characterTypes[charTypeId].getName() }}</div>
+                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].total }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].total, stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].win }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].win, stats.characterTypesStats[charTypeId].total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].loss }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].loss, stats.characterTypesStats[charTypeId].total | percent }} <span class="statsPercent">%</span></div>
+                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].draw }}</div>
+                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].draw, stats.characterTypesStats[charTypeId].total | percent }} <span class="statsPercent">%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</subpage>

@@ -13,9 +13,13 @@
         padding: 10px;
     }
     .error .errors {
-        color: firebrick;
-        padding: 10px;
+        color: var(--color-foreground-error);
+        padding: 0 10px 7px;
         font-size: 14px;
+        > span {
+            display: block;
+            padding-bottom: 3px;
+        }
     }
     input.form-control[type="text"],
     input.form-control[type="number"],

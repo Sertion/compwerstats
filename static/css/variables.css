@@ -25,13 +25,23 @@
     --color-foreground-form-input: var(--color-foreground-label);
     --color-foreground-form-input-placeholder: #4f687c;
 
+    --color-foreground-error: var(--color-result-loss);
+
     --color-background-button: #3e3e3e;
     --color-foreground-button: #c2c2c2;
 
     --color-background-label: #1d2831;
     --color-background-label-hover: #28353f;
+    --color-background-label-focus: var(--color-background-label-hover);
     --color-background-label-active: #2a4153;
     --color-foreground-label: var(--color-foreground-chrome);
+
+    --color-background-stats-head: #102c42;
+    --color-background-stats-even-even: #303b43;
+    --color-background-stats-even-odd: #232d35;
+    --color-background-stats-odd-even: #233543;
+    --color-background-stats-odd-odd: #1e2b35;
+    --color-background-stats-combined: #233529;
 
     --color-result-win: #94e04e;
     --color-result-draw: #f5f062;

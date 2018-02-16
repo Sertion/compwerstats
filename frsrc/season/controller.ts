@@ -73,6 +73,8 @@ export class SeasonController {
     }
 
     static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
+        const oldSeasons = await SeasonController.getAll();
+
         return {
             fields: [
                 {
@@ -84,7 +86,13 @@ export class SeasonController {
                     min: 0,
                     required: true,
                     placeholder: 'Season number (etc. 12)',
-                    validator: validators.required
+                    validator: [validators.required, (value: number): string[] => {
+                        const duplicate = oldSeasons.some((season: Season): boolean => {
+                            return value && season.getName() && season.getName() == value.toString();
+                        });
+
+                        return duplicate ? ["Duplicate season number"] : [];
+                    }]
                 },
                 {
                     type: 'input',
@@ -103,6 +111,7 @@ export class SeasonController {
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
+                    validateBeforeSubmit: true,
                     onSubmit: async (model) => {
                         const id = await model.save();
                         if (typeof saveCallback === 'function') {

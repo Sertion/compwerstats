@@ -2,8 +2,7 @@
     float: left;
     background-color: rgba(63, 65, 130, 0);
     cursor: pointer;
-    padding: 12px 7px 8px;
-    transition: background-color 200ms;
+    padding: 10px 7px 4px;
     -webkit-app-region: no-drag;
 }
 
@@ -12,7 +11,6 @@
 }
 
 .buttonChrome:hover {
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
     background-color: rgb(63, 65, 130);
 }
 
@@ -29,7 +27,6 @@
 .buttonChrome__iconPath {
     stroke: rgba(255, 255, 255, .5);
     fill: transparent;
-    transition: stroke 200ms;
 }
 
 .buttonChrome:hover .buttonChrome__iconPath {

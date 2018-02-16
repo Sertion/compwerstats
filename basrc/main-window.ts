@@ -41,12 +41,12 @@ export class MainWindow {
 
     create() {
         this.window = new BrowserWindow({
-            height: windowState.height,
-            width: windowState.width,
+            height: Math.max(500, windowState.height),
+            width: Math.max(750, windowState.width),
             x: windowState.x,
             y: windowState.y,
-            minHeight: 450,
-            minWidth: 600,
+            minHeight: 500,
+            minWidth: 750,
             frame: false,
             title: "Compwerstats",
             icon: Path.join(__dirname, '..', 'static', 'img', 'compwerstats-logo.ico')

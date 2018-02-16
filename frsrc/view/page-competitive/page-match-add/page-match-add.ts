@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue, { ComponentOptions } from 'vue';
 import { Component, Prop, Watch } from 'vue-property-decorator';
 
 import { SeasonMode, MatchType } from '../../../interface';
@@ -20,7 +20,7 @@ import CharacterList from '../../fragments/character-list';
 import GroupSize from '../../fragments/group-size';
 import ButtonBase from '../../button/base';
 
-@Component({
+@Component(<ComponentOptions<Vue>>{
     template: require('./page-match-add.html'),
     components: {
         Subpage,

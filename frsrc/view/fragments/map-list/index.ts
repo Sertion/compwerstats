@@ -1,1 +1,3 @@
-export * from './map-list';
+import MapList from "./map-list";
+
+export default MapList;

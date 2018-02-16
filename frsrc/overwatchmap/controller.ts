@@ -44,6 +44,7 @@ export class OverwatchMapController {
 
     static async getFormSchema(create: boolean = false, saveCallback: (modelId) => void): Promise<Object> {
         const mapTypes = await OverwatchMapTypeController.getAll();
+        const oldMaps = await OverwatchMapController.getAll();
 
         return {
             fields: [
@@ -55,7 +56,13 @@ export class OverwatchMapController {
                     maxlength: 50,
                     required: true,
                     placeholder: 'Map name',
-                    validator: validators.required
+                    validator: [validators.required, (value: string): string[] => {
+                        const duplicate = oldMaps.some((map: OverwatchMap): boolean => {
+                            return value && map.name && map.name.toLowerCase() === value.toLowerCase();
+                        });
+
+                        return duplicate ? ["Duplicate map name"] : [];
+                    }]
                 },
                 {
                     type: 'radios',
@@ -78,6 +85,7 @@ export class OverwatchMapController {
                 {
                     type: 'submit',
                     buttonText: create ? 'Create' : 'Save',
+                    validateBeforeSubmit: true,
                     onSubmit: async (model) => {
                         const id = await model.save();
                         if (typeof saveCallback === 'function') {

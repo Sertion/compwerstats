@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Component, Watch, Prop } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 
 import { CharacterController, Character } from '../../../character';
 import { CharacterTypeController, CharacterType } from '../../../charactertype';
@@ -29,14 +29,15 @@ export default class PageSettingsEdit extends Vue {
     backProperties: object;
 
     type: string;
-
     id: string;
-
     schema: Object = {};
 
     model: Match | Character | CharacterType | CommentSuggestion | OverwatchMap | OverwatchMapType | Rank | Season;
 
     loading: boolean = true;
+    formOptions: object = {
+        validateAfterChanged: true
+    };
 
     data() {
         return {
@@ -52,13 +53,6 @@ export default class PageSettingsEdit extends Vue {
     created() {
         this.type = this.$route.params.type;
         this.id = this.$route.params.id;
-        this.fetchData();
-    }
-
-    @Watch('$route')
-    on$RouteChange (to, from) {
-        this.type = to.params.type;
-        this.id = to.params.id;
         this.fetchData();
     }
 
@@ -167,6 +161,5 @@ export default class PageSettingsEdit extends Vue {
             case 'season':
                 return SeasonController;
         }
-
     }
 }

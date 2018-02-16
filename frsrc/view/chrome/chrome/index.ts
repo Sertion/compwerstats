@@ -1,1 +1,3 @@
-export * from './chrome';
+import Chrome from "./chrome";
+
+export default Chrome;

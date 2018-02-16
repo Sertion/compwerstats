@@ -1,1 +1,3 @@
-export * from './chrome-button';
+import ButtonChrome from "./chrome-button";
+
+export default ButtonChrome;

@@ -1,0 +1,28 @@
+.topNavigation {
+    width: 100%;
+    flex-grow: 2;
+    justify-self: stretch;
+
+    display: flex;
+}
+.topNavigationItem {
+    padding: 0 10px;
+    background-color: var(--color-background-label);
+    color: var(--color-foreground-label);
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 6px;
+    border-radius: 2px;
+    line-height: 24px;
+    font-size: 14px;
+}
+.topNavigationItem:hover {
+    background-color: var(--color-background-label-hover);
+}
+.topNavigationItem:focus {
+    background-color: var(--color-background-label-focus);
+}
+.topNavigationItem.router-link-exact-active {
+    background-color: var(--color-background-label-active);
+}

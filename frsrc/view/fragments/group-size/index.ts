@@ -1,1 +1,3 @@
-export * from './group-size';
+import GroupSize from "./group-size";
+
+export default GroupSize;

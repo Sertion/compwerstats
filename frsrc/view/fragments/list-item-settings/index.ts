@@ -1,1 +1,3 @@
-export * from './list-item-settings';
+import ListItemSettings from "./list-item-settings";
+
+export default ListItemSettings;

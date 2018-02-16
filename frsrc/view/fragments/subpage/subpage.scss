@@ -20,7 +20,8 @@
 .subpage__head {
     display: flex;
     grid-area: head;
-    justify-self: end;
+    width: 100%;
+    justify-content: flex-end;
 }
 .subpage__body {
     overflow-y: auto;

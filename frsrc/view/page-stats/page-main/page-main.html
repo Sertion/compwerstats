@@ -1,78 +1,119 @@
 <subpage>
+    <navigation slot="head"></navigation>
     <loading-spinner v-if="loading"></loading-spinner>
-    <div class="coolStats" v-else>
-        <div class="statsTable">
+    <div class="statsOverview" v-else>
+        <div class="statsTable statsTable--quickRatings">
             <div class="statsRow statsRow--head">
-                <div class="statsHead statsHead--label">Character</div>
-                <div class="statsHead statsHead--percentage">Played %</div>
-                <div class="statsHead statsHead--number">Played</div>
-                <div class="statsHead statsHead--number">Wins</div>
-                <div class="statsHead statsHead--number">Losses</div>
-                <div class="statsHead statsHead--number">Draws</div>
-                <div class="statsHead statsHead--percentage">Win %</div>
-                <div class="statsHead statsHead--percentage">Loss %</div>
-                <div class="statsHead statsHead--percentage">Draw %</div>
+                <div class="statsHead statsHead--label">Skill Rating</div>
+                <div class="statsHead statsHead--percentage">Value</div>
             </div>
-            <div v-for="(charType, charTypeId) in stats.characterTypes" class="statsGroups">
-                <div v-for="(cStats, charId) in charType" class="statsRow">
-                    <div class="statsField statsField--label">{{ models.characters[charId].getName() }}</div>
-                    <div class="statsField statsField--percentage">{{ cStats.total, stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--number">{{ cStats.total }}</div>
-                    <div class="statsField statsField--number">{{ cStats.win }}</div>
-                    <div class="statsField statsField--number">{{ cStats.loss }}</div>
-                    <div class="statsField statsField--number">{{ cStats.draw }}</div>
-                    <div class="statsField statsField--percentage">{{ cStats.win, cStats.total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ cStats.loss, cStats.total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ cStats.draw, cStats.total | percent }} <span class="statsPercent">%</span></div>
+            <div class="statsGroups">
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Current SR</div>
+                    <div class="statsField statsField--number">{{ stats.currentSr }}</div>
                 </div>
-                <div class="statsRow statsRow--combined">
-                    <div class="statsField statsField--label">{{ models.characterTypes[charTypeId].getName() }}</div>
-                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].total, stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].total }}</div>
-                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].win }}</div>
-                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].loss }}</div>
-                    <div class="statsField statsField--number">{{ stats.characterTypesStats[charTypeId].draw }}</div>
-                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].win, stats.characterTypesStats[charTypeId].total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].loss, stats.characterTypesStats[charTypeId].total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ stats.characterTypesStats[charTypeId].draw, stats.characterTypesStats[charTypeId].total | percent }} <span class="statsPercent">%</span></div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Highest SR</div>
+                    <div class="statsField statsField--number">{{ stats.highestSr }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Lowest SR</div>
+                    <div class="statsField statsField--number">{{ stats.lowestSr }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Average SR</div>
+                    <div class="statsField statsField--number">{{ stats.averageSr }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Median SR</div>
+                    <div class="statsField statsField--number">{{ stats.medianSr }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Largest SR Gain</div>
+                    <div class="statsField statsField--number">{{ stats.largestSrGain }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Average SR Gain</div>
+                    <div class="statsField statsField--number">{{ stats.averageSrGain }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Largest SR Loss</div>
+                    <div class="statsField statsField--number">{{ stats.largestSrLoss }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label">Average SR Loss</div>
+                    <div class="statsField statsField--number">{{ stats.averageSrLoss }}</div>
+                </div>
+                <div class="statsRow">
+                    <div class="statsField statsField--label" title="Average skill rating change over the last 10 matches">Avg. SR &Delta; last 10</div>
+                    <div class="statsField statsField--number">{{ stats.averageSRChangeLastTen }}</div>
                 </div>
             </div>
         </div>
-        <div class="statsTable">
+        <div class="statsTable statsTable--quickResults">
             <div class="statsRow statsRow--head">
-                <div class="statsHead statsHead--label">Map</div>
-                <div class="statsHead statsHead--percentage">Played %</div>
-                <div class="statsHead statsHead--number">Played</div>
-                <div class="statsHead statsHead--number">Wins</div>
-                <div class="statsHead statsHead--number">Losses</div>
-                <div class="statsHead statsHead--number">Draws</div>
-                <div class="statsHead statsHead--percentage">Win %</div>
-                <div class="statsHead statsHead--percentage">Loss %</div>
-                <div class="statsHead statsHead--percentage">Draw %</div>
+                <div class="statsHead statsHead--label">Results</div>
+                <div class="statsHead statsHead--number">Values</div>
             </div>
-            <div v-for="(mapType, mapTypeId) in stats.mapTypes" class="statsGroups">
-                <div v-for="(mapStats, mapId) in mapType" class="statsRow">
-                    <div class="statsField statsField--label">{{ models.maps[mapId].getName() }}</div>
-                    <div class="statsField statsField--percentage">{{ (mapStats.total), stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--number">{{ mapStats.total }}</div>
-                    <div class="statsField statsField--number">{{ mapStats.win }}</div>
-                    <div class="statsField statsField--number">{{ mapStats.loss }}</div>
-                    <div class="statsField statsField--number">{{ mapStats.draw }}</div>
-                    <div class="statsField statsField--percentage">{{ mapStats.win, mapStats.total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ mapStats.loss, mapStats.total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ mapStats.draw, mapStats.total | percent }} <span class="statsPercent">%</span></div>
-                </div>
-                <div class="statsRow statsRow--combined">
-                    <div class="statsField statsField--label">{{ models.mapTypes[mapTypeId].getName() }}</div>
-                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].total, stats.totalNumberOfMatches | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].total }}</div>
-                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].win }}</div>
-                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].loss }}</div>
-                    <div class="statsField statsField--number">{{ stats.mapTypesStats[mapTypeId].draw }}</div>
-                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].win, stats.mapTypesStats[mapTypeId].total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].loss, stats.mapTypesStats[mapTypeId].total | percent }} <span class="statsPercent">%</span></div>
-                    <div class="statsField statsField--percentage">{{ stats.mapTypesStats[mapTypeId].draw, stats.mapTypesStats[mapTypeId].total | percent }} <span class="statsPercent">%</span></div>
-                </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Matches</div>
+                <div class="statsField statsField--number">{{ stats.playedMatches }}</div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Sessions</div>
+                <div class="statsField statsField--number">{{ stats.sessions }}</div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Per Session</div>
+                <div class="statsField statsField--number">{{ stats.matchesPerSession }}</div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Wins</div>
+                <div class="statsField statsField--number">{{ stats.wins }}</div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Win %</div>
+                <div class="statsField statsField--percentage">{{ stats.wins, stats.playedMatches | percent }} <span class="statsPercent">%</span></div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Losses</div>
+                <div class="statsField statsField--number">{{ stats.losses }}</div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Loss %</div>
+                <div class="statsField statsField--percentage">{{ stats.losses, stats.playedMatches | percent }} <span class="statsPercent">%</span></div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Draws</div>
+                <div class="statsField statsField--number">{{ stats.draws }}</div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Draw %</div>
+                <div class="statsField statsField--percentage">{{ stats.draws, stats.playedMatches | percent }} <span class="statsPercent">%</span></div>
+            </div>
+            <div class="statsRow">
+                <div class="statsField statsField--label">Win % last 10</div>
+                <div class="statsField statsField--percentage">{{ stats.winsLastTen, stats.playedMatchesLastTen | percent }} <span class="statsPercent">%</span></div>
+            </div>
+        </div>
+        <div class="statsTable statsTable--bestChar">
+            <div class="statsRow statsRow--head">
+                <div class="statsHead statsHead--label">Best Hero</div>
+                <div class="statsHead statsHead--number statsHead--win">Win <span class="statsPercent">%</span></div>
+            </div>
+            <div class="statsRow" v-for="char in characters">
+                <div class="statsField statsField--label">{{ char.character.getName() }}</div>
+                <div class="statsField statsField--number">{{ char.wins, char.gamesPlayed | percent }} <span class="statsPercent">%</span></div>
+            </div>
+        </div>
+        <div class="statsTable statsTable--bestMap">
+            <div class="statsRow statsRow--head">
+                <div class="statsHead statsHead--label">Best Map</div>
+                <div class="statsHead statsHead--number statsHead--win">Win <span class="statsPercent">%</span></div>
+            </div>
+            <div class="statsRow" v-for="map in maps">
+                <div class="statsField statsField--label">{{ map.map.getName() }}</div>
+                <div class="statsField statsField--number">{{ map.wins, map.gamesPlayed | percent }} <span class="statsPercent">%</span></div>
             </div>
         </div>
     </div>

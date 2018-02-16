@@ -48,7 +48,7 @@ export default class Chrome extends Vue {
         this.fetchUpdateInformation();
         this.buttonInfo = this.quickAddInfo(this.$store.state.seasonMode);
         this.matchesLink = mainBasedOnMode(this.$store.state.seasonMode);
-        this.mainLink = this.$store.state.seasonMode === 'competetive' ? '/competitive' : '/placement';
+        this.mainLink = this.$store.state.seasonMode === SeasonMode.Matches ? '/competitive' : '/placement';
         this.modeWatcher = this.$store.watch(this.$store.getters.getSeasonMode, (newMode) => {
             this.buttonInfo = this.quickAddInfo(newMode);
             this.matchesLink = mainBasedOnMode(newMode);

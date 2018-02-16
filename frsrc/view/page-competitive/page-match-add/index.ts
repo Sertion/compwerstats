@@ -1,1 +1,3 @@
-export * from './page-match-add';
+import PageMatchAdd from "./page-match-add";
+
+export default PageMatchAdd;

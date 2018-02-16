@@ -1,1 +1,3 @@
-export * from './match';
+import MatchItem from "./match";
+
+export default MatchItem;

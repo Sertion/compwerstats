@@ -1,1 +1,3 @@
-export * from './button-base';
+import ButtonBase from "./button-base";
+
+export default ButtonBase;

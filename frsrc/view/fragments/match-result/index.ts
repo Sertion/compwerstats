@@ -1,1 +1,3 @@
-export * from './match-result';
+import { MatchResult } from "../../../interface";
+
+export default MatchResult;

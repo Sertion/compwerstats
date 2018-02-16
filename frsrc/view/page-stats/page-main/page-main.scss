@@ -1,28 +1,30 @@
-/**
- * Variables
- */
-
-$color-bg-label: rgba(128, 73, 255, 0.28);
-$color-bg-combined: rgba(124, 197, 255, 0.42);
-$color-bg-altRow: rgba(0, 0, 0, 0.05);
-
-/**
- * Styles
- */
 .statsTable {
     margin: 0 auto;
     width: 100%;
     max-width: 1200px;
 }
-.statsTable + .statsTable {
-    margin-top: 50px;
-}
 .statsHead {
     font-size: 20px;
+    line-height: 21px;
     font-family: kOverwatch;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .statsField {
-    font-size: 16px;
+    font-size: 15px;
+}
+.statsRow:nth-child(odd) > .statsField:nth-child(odd) {
+    background-color: var(--color-background-stats-odd-odd);
+}
+.statsRow:nth-child(odd) > .statsField:nth-child(even) {
+    background-color: var(--color-background-stats-odd-even);
+}
+.statsRow:nth-child(even) > .statsField:nth-child(odd) {
+    background-color: var(--color-background-stats-even-odd);
+}
+.statsRow:nth-child(even) > .statsField:nth-child(even) {
+    background-color: var(--color-background-stats-even-even);
 }
 .statsHead,
 .statsField {
@@ -31,9 +33,14 @@ $color-bg-altRow: rgba(0, 0, 0, 0.05);
     flex-grow: 1;
     width: 20%;
 }
+.statsHead--double {
+    width: 40%;
+    flex-grow: 2;
+    text-align: center;
+}
 .statsHead--label,
 .statsField--label {
-    background-color: $color-bg-label;
+    background-color: var(--color-background-stats-even);
     width: 25%;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -47,11 +54,18 @@ $color-bg-altRow: rgba(0, 0, 0, 0.05);
 .statsField--number {
     text-align: right;
 }
-.statsField:nth-child(2n+1) {
-    background-color: $color-bg-altRow;
+.statsHead--win {
+    color: var(--color-result-win);
 }
-.statsField--label:nth-child(2n+1) {
-    background-color: mix($color-bg-altRow, $color-bg-label);
+.statsHead--loss {
+    color: var(--color-result-loss);
+}
+.statsHead--draw {
+    color: var(--color-result-draw);
+}
+
+.statsRow > .statsField--label:nth-child(even) {
+    background-color: var(--color-background-stats-even);
 }
 .statsGroups {
     margin-bottom: 10px;
@@ -63,35 +77,52 @@ $color-bg-altRow: rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: space-between;
 }
-.statsRow:nth-child(2n+1) {
-    background-color: $color-bg-altRow;
+.statsRow.statsRow--combined > .statsField:nth-child(n) {
+    background-color: var(--color-background-stats-combined);
 }
-.statsRow.statsRow--combined {
-    background-color: $color-bg-combined;
+.statsRow.statsRow--head {
+    position: sticky;
+    top: 0;
+    background-color: var(--color-background-stats-head);
+}
+.statsRow.statsRow--subHead {
+    position: sticky;
+    top: 31px;
+    background-color: var(--color-background-stats-head);
+}
+.statsRow.statsRow--subHead > .statsHead {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 0 10px 2px;
 }
 .statsPercent {
     font-size: .75em;
     vertical-align: baseline;
 }
 
-@media (max-width: 839px) {
-    .statsHead {
-        font-size: 15px;
-    }
-    .statsField {
-        font-size: 14px;
-    }
-    .statsHead,
-    .statsField {
-        padding: 5px;
-        min-width: 0;
-    }
-    .statsHead--percentage,
-    .statsField--percentage {
-        min-width: 60px;
-    }
-    .statsPercent {
-        font-size: .5em;
-        vertical-align: baseline;
-    }
+/**
+ * Overview page
+ */
+.statsOverview {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 31px 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fill, auto);
+    grid-template-areas:
+    "quickratings quickresults bestchar"
+    "quickratings quickresults bestmap";
+}
+.statsTable--quickRatings {
+    grid-area: quickratings;
+}
+.statsTable--quickResults {
+    grid-area: quickresults;
+}
+.statsTable--bestChar {
+    grid-area: bestchar;
+}
+.statsTable--bestMap {
+    grid-area: bestmap;
 }

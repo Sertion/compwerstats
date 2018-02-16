@@ -1,6 +1,6 @@
 .chrome {
     display: grid;
-    grid-template-rows: 40px auto;
+    grid-template-rows: 32px auto;
     grid-template-columns: 60px auto;
     grid-template-areas: "head head" "sidebar main";
     height: 100vh;
@@ -20,33 +20,33 @@
 }
 .chrome__title {
     padding: 5px 0 5px 5px;
-    font-size: 30px;
+    font-size: 24px;
     font-family: BigNoodle;
     flex-grow: 2;
 }
 .chrome__title:before {
     content: "";
-    background-image: url('../../../../static/img/compwerstats-logo.png');
+    background-image: url('../../../../static/img/cws-logo-24.svg');
     background-size: contain;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    height: 30px;
-    width: 30px;
-    margin-right: 10px;
+    height: 24px;
+    width: 50px;
+    margin-right: 5px;
     float: left;
 }
 .chrome__rating {
-    line-height: 40px;
-    padding-right: 20px;
+    line-height: 32px;
+    padding-right: 15px;
     display: flex;
 }
 .chrome__ratingIcon {
-    height: 40px;
+    height: 32px;
     width: auto;
 }
 .chrome__ratingLabel {
     color: var(--color-foreground-chrome);
-    font-size: 30px;
+    font-size: 24px;
     font-family: kOverwatch;
 }
 .chrome__windowAction {

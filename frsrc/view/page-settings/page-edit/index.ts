@@ -1,1 +1,3 @@
-export * from './page-edit';
+import PageSettingsEdit from "./page-edit";
+
+export default PageSettingsEdit;

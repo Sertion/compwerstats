@@ -1,1 +1,3 @@
-export * from './page-list';
+import PageSettingsList from "./page-list";
+
+export default PageSettingsList;

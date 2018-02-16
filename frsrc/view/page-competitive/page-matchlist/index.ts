@@ -1,1 +1,3 @@
-export * from './page-matchlist';
+import PageMatchList from "./page-matchlist";
+
+export default PageMatchList;
