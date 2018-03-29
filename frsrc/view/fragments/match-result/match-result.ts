@@ -19,8 +19,8 @@ export default class MatchResultSelector extends Vue {
     }
 
     resultChange(ev) {
-        const target = <HTMLElement>ev.target;
-        const resultElement = <HTMLElement>target.closest('.resultsLabel');
+        const target = ev.target as HTMLElement;
+        const resultElement = target.closest('.resultsLabel') as HTMLElement;
         const siblings = Array.from(resultElement.parentElement.children).filter((el) => {
             return el !== resultElement;
         });

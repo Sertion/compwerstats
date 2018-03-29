@@ -11,7 +11,7 @@
             </div>
             <div v-if="type === 'placement' || (match.rating && match.rating <= 500)" class="addMatchGroup addMatchGroup--result">
                 <h2 class="addMatch__header">Match result</h2>
-                <match-result-selector v-model="match.result"></match-result-selector>
+                <MatchResultSelector v-model="match.result" />
             </div>
             <div class="addMatchGroup addMatchGroup--map">
                 <h2 class="addMatch__header">Select map</h2>

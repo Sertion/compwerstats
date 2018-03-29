@@ -46,7 +46,11 @@ export default class PageMatchAdd extends Vue {
     }
 
     async fetchData() {
-        this.type = <MatchType>(this.$store.state.seasonMode === SeasonMode.Placements ? MatchType.Placement : MatchType.Match);
+        if (this.$store.state.seasonMode === SeasonMode.Placements) {
+            this.type = MatchType.Placement;
+        } else {
+            this.type = MatchType.Match;
+        }
 
         this.loading = true;
 
