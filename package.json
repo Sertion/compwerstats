@@ -19,7 +19,7 @@
     "awesome-typescript-loader": "^3.5.0",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
-    "electron": "1.8.2",
+    "electron": "1.8.4",
     "electron-packager": "^11.2.0",
     "file-loader": "^1.1.11",
     "node-sass": "^4.8.3",
