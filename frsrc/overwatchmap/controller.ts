@@ -30,7 +30,7 @@ export class OverwatchMapController {
                         reader.onloadend = () => {
                             const dataUrl = <string>reader.result;
                             if (dataUrl.substr(0, dataUrlPrefix.length) === dataUrlPrefix) {
-                                map.imagePath = reader.result;
+                                map.imagePath = dataUrl;
                             }
                             else {
                                 map.imagePath = '';

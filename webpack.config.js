@@ -32,7 +32,7 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'raw-loader',
-        exclude: ['./index.html']
+        exclude: /index.html/
       },
       {
         test: /\.tsx?$/,
