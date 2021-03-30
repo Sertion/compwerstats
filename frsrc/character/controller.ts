@@ -1,8 +1,5 @@
-const { ipcRenderer } = require('electron');
-
 import { validators } from 'vue-form-generator';
 
-import { Dexie } from 'dexie';
 import { Character } from './model';
 import { CompwerstatsDatabase } from '../database';
 

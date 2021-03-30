@@ -5,6 +5,7 @@ A spreadsheet for spreadsheet sceptics.
 
 ## Planned featues
 
+* Making it work again
 * Match editing (sort of there)
 * Streaks
 * More stats
